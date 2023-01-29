@@ -1,0 +1,9 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../RISCVImplementation.srcs/sources_1/new/basic.vhd" \
+"../../../../RISCVImplementation.srcs/sources_1/new/ALU_ft.vhd" \
+"../../../../RISCVImplementation.srcs/sources_1/new/ALU.vhd" \
+"../../../../RISCVImplementation.srcs/sim_1/new/ALU_TB.vhd" \
+
+# Do not sort compile order
+nosort
