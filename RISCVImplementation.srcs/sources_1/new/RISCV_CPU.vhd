@@ -79,7 +79,7 @@ begin
         resultValue => ALUResult
       );
       
-    DMEM_U: DataMemory
+    MEM_U: DataMemory
       port map(
         memWriteEn => memWriteEn,
         address => ALUResult,
@@ -90,6 +90,9 @@ begin
       
     with ALUMemSel select MUXOutSig <=
       memOut when ACTIVE,
-      ALUResult when not ACTIVE;
+      ALUResult when not ACTIVE,
+      (others => '0') when others;
+      
+    MUXOut <= MUXOutSig;
 
 end RISCV_CPU_ARCH;

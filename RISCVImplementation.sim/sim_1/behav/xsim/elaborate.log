@@ -1,6 +1,6 @@
 Vivado Simulator v2022.2
 Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2022.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot DataMemory_TB_behav xil_defaultlib.DataMemory_TB -log elaborate.log 
+Running: C:/Xilinx/Vivado/2022.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot RISCV_CPU_TB_behav xil_defaultlib.RISCV_CPU_TB -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -12,6 +12,13 @@ Compiling package std.textio
 Compiling package ieee.std_logic_1164
 Compiling package ieee.numeric_std
 Compiling package xil_defaultlib.basic
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package xil_defaultlib.alu_ft
+Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [singleregister_default]
+Compiling architecture registers_arch of entity xil_defaultlib.Registers [registers_default]
+Compiling architecture alu_arch of entity xil_defaultlib.ALU [alu_default]
 Compiling architecture datamemory_arch of entity xil_defaultlib.DataMemory [datamemory_default]
-Compiling architecture datamemory_tb_arch of entity xil_defaultlib.datamemory_tb
-Built simulation snapshot DataMemory_TB_behav
+Compiling architecture riscv_cpu_arch of entity xil_defaultlib.RISCV_CPU [riscv_cpu_default]
+Compiling architecture riscv_cpu_tb_arch of entity xil_defaultlib.riscv_cpu_tb
+Built simulation snapshot RISCV_CPU_TB_behav

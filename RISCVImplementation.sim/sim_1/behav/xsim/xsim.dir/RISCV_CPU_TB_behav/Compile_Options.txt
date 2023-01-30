@@ -1,0 +1,1 @@
+--incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "RISCV_CPU_TB_behav" "xil_defaultlib.RISCV_CPU_TB" -log "elaborate.log" 

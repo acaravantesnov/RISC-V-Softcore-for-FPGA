@@ -13,7 +13,7 @@ architecture ALU_TB_ARCH of ALU_TB is
       r1:       in std_logic_vector(31 downto 0);
       r2:       in std_logic_vector(31 downto 0);
       control:  in std_logic_vector(3 downto 0);
-      cout:     out std_logic;
+      cOut:     out std_logic;
       overflow: out std_logic;
       resultValue:   out std_logic_vector(31 downto 0)
     );
@@ -22,7 +22,7 @@ architecture ALU_TB_ARCH of ALU_TB is
   signal r1, r2: std_logic_vector (31 downto 0);
   signal resultValue: std_logic_vector(31 downto 0);
   signal control: std_logic_vector(3 downto 0);
-  signal cout, overflow: std_logic;
+  signal cOut, overflow: std_logic;
 
 begin
 
@@ -31,35 +31,35 @@ begin
       r1 => r1,
       r2 => r2,
       control => control,
-      cout => cout,
+      cOut => cOut,
       overflow => overflow,
       resultValue => resultValue
     );
 
-    REGISTERS_DRIVER: process
-    begin
-      r1 <= (0 => '1', others => '0');
-      r2 <= (1 => '1', others => '0');
-      control <= "0000"; -- ADD
-      wait for 50 us;
-      control <= "1000"; -- SUB
-      wait for 50 us;
-      control <= "0001"; -- SLL
-      wait for 50 us;
-      control <= "0010"; -- SLT
-      wait for 50 us;
-      control <= "0011"; -- SLLU
-      wait for 50 us;
-      control <= "0100"; -- XOR
-      wait for 50 us;
-      control <= "0101"; -- SRL
-      wait for 50 us;
-      control <= "1101"; -- SRA
-      wait for 50 us;
-      control <= "0110"; -- OR
-      wait for 50 us;
-      control <= "0111"; -- AND
-      wait;
-    end process REGISTERS_DRIVER;
+  REGISTERS_DRIVER: process
+  begin
+    r1 <= (0 => '1', others => '0');
+    r2 <= (1 => '1', others => '0');
+    control <= "0000"; -- ADD
+    wait for 50 us;
+    control <= "1000"; -- SUB
+    wait for 50 us;
+    control <= "0001"; -- SLL
+    wait for 50 us;
+    control <= "0010"; -- SLT
+    wait for 50 us;
+    control <= "0011"; -- SLLU
+    wait for 50 us;
+    control <= "0100"; -- XOR
+    wait for 50 us;
+    control <= "0101"; -- SRL
+    wait for 50 us;
+    control <= "1101"; -- SRA
+    wait for 50 us;
+    control <= "0110"; -- OR
+    wait for 50 us;
+    control <= "0111"; -- AND
+    wait;
+  end process REGISTERS_DRIVER;
 
 end ALU_TB_ARCH;
