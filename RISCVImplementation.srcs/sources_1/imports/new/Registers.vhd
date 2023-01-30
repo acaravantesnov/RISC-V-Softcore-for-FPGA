@@ -40,6 +40,17 @@ architecture Registers_ARCH of Registers is
 	
 begin
 
+  GENERATE_32_REGISTERS: for i in 0 to 31 generate
+		REGX: singleRegister
+		  port map(
+		    input => r_Input(i),
+		    writeEn => r_WriteEn(i),
+		    reset => reset,
+		    clock => clock,
+		    output => r_Output(i)
+		  );
+	end generate GENERATE_32_REGISTERS;
+
 	DEMUX: process(rd, writeData, regWriteEn)
 	begin
     for i in 0 to 31 loop
@@ -55,16 +66,5 @@ begin
   --MUX
 	r1 <= r_Output(to_integer(rs1));
 	r2 <= r_Output(to_integer(rs2));
-
-	GENERATE_32_REGISTERS: for i in 0 to 31 generate
-		REGX: singleRegister
-		  port map(
-		    input => r_Input(i),
-		    writeEn => r_WriteEn(i),
-		    reset => reset,
-		    clock => clock,
-		    output => r_Output(i)
-		  );
-	end generate GENERATE_32_REGISTERS;
 
 end Registers_ARCH;

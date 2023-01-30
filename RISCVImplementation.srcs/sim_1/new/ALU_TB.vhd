@@ -40,19 +40,25 @@ begin
     begin
       r1 <= (0 => '1', others => '0');
       r2 <= (1 => '1', others => '0');
-      control <= "0000";
+      control <= "0000"; -- ADD
       wait for 50 us;
-      control <= "1000";
+      control <= "1000"; -- SUB
       wait for 50 us;
-      control <= "0010";
+      control <= "0001"; -- SLL
       wait for 50 us;
-      control <= "0011";
+      control <= "0010"; -- SLT
       wait for 50 us;
-      control <= "0100";
+      control <= "0011"; -- SLLU
       wait for 50 us;
-      control <= "0110";
+      control <= "0100"; -- XOR
       wait for 50 us;
-      control <= "0111";
+      control <= "0101"; -- SRL
+      wait for 50 us;
+      control <= "1101"; -- SRA
+      wait for 50 us;
+      control <= "0110"; -- OR
+      wait for 50 us;
+      control <= "0111"; -- AND
       wait;
     end process REGISTERS_DRIVER;
 

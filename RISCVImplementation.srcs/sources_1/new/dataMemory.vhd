@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.basic.all;
 
-entity dataMemory is
+entity DataMemory is
   port(
     memWriteEn: in std_logic;
     address:    in std_logic_vector(31 downto 0);
@@ -11,11 +11,11 @@ entity dataMemory is
     clock:      in std_logic;
     dataOut:    out std_logic_vector(31 downto 0)
   );
-end dataMemory;
+end DataMemory;
 
-architecture dataMemory_ARCH of dataMemory is
+architecture DataMemory_ARCH of DataMemory is
 
-  type ram_type is array(0 to (2 ** address'length) - 1) of std_logic_vector(31 downto 0);
+  type ram_type is array(0 to (2 ** 16) - 1) of std_logic_vector(31 downto 0);
   signal ram: ram_type;
   signal readAddress: std_logic_vector(31 downto 0);
 
@@ -35,4 +35,4 @@ begin
   -- Load: Read memory and update register.
   dataOut <= ram(to_integer(unsigned(readAddress)));
 
-end architecture dataMemory_ARCH;
+end architecture DataMemory_ARCH;

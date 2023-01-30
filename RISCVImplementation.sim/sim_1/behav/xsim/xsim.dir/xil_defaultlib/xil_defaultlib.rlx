@@ -3,10 +3,12 @@
 Oct 14 2022
 05:20:55
 C:/Users/acara/Downloads/TFG-20221205T141517Z-001/TFG/TFG.srcs/sim_1/new/singleRegister_TB.vhd,1670259616,vhdl,,,,singleregister_tb,,,,,,,,
-C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sim_1/new/ALU_TB.vhd,1674607114,vhdl,,,,alu_tb,,,,,,,,
+C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sim_1/new/ALU_TB.vhd,1675045571,vhdl,,,,alu_tb,,,,,,,,
+C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sim_1/new/DataMemory_TB.vhd,1675048019,vhdl,,,,datamemory_tb,,,,,,,,
 C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sim_1/new/Registers_TB.vhd,1674430586,vhdl,,,,registers_tb,,,,,,,,
 C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/imports/new/Registers.vhd,1674429907,vhdl,,,,registers,,,,,,,,
 C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/imports/new/singleRegister.vhd,1674429732,vhdl,,,,singleregister,,,,,,,,
-C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU.vhd,1674956974,vhdl,,,,alu,,,,,,,,
-C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU_ft.vhd,1674956738,vhdl,C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU.vhd,,,alu_ft,,,,,,,,
-C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/basic.vhd,1674428878,vhdl,C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU.vhd,,,basic,,,,,,,,
+C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU.vhd,1674960878,vhdl,,,,alu,,,,,,,,
+C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU_ft.vhd,1675046303,vhdl,C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/ALU.vhd,,,alu_ft,,,,,,,,
+C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/DataMemory.vhd,1675048794,vhdl,,,,datamemory,,,,,,,,
+C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/basic.vhd,1674428878,vhdl,C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/DataMemory.vhd,,,basic,,,,,,,,
