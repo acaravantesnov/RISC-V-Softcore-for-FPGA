@@ -51,6 +51,7 @@ begin
 		  );
 	end generate GENERATE_32_REGISTERS;
 
+  -- DEMUX
 	DEMUX: process(rd, writeData, regWriteEn)
 	begin
     for i in 0 to 31 loop
@@ -63,7 +64,7 @@ begin
     end loop;
 	end process;
 
-  --MUX
+  -- MUX
 	r1 <= r_Output(to_integer(rs1));
 	r2 <= r_Output(to_integer(rs2));
 

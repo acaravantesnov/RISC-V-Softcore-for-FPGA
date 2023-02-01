@@ -1,2 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sim_1/new/RISCV_CPU_TB.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'RISCV_CPU_TB'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/RISCV_CPU.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'RISCV_CPU'

@@ -10,6 +10,7 @@ entity RISCV_CPU is
     rd:         in unsigned(4 downto 0);
     regWriteEn: in std_logic;
     memWriteEn: in std_logic;
+    memReadEn:  in std_logic;
     ALUControl: in std_logic_vector(3 downto 0);
     ALUMemSel:  in std_logic;
     clock:      in std_logic;
@@ -47,6 +48,7 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   component DataMemory is
     port(
       memWriteEn: in std_logic;
+      memReadEn:  in std_logic;
       address:    in std_logic_vector(31 downto 0);
       dataIn:     in std_logic_vector(31 downto 0);
       clock:      in std_logic;
@@ -82,6 +84,7 @@ begin
     MEM_U: DataMemory
       port map(
         memWriteEn => memWriteEn,
+        memReadEn => memReadEn,
         address => ALUResult,
         dataIn => r2Sig,
         clock => clock,
