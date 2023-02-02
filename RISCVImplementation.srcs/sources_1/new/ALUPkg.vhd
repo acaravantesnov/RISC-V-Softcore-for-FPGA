@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 
-package ALU_ft is
+package ALUPkg is
 
   function add_ins( r1: std_logic_vector(31 downto 0);
                     r2: std_logic_vector(31 downto 0))
@@ -35,7 +35,7 @@ package ALU_ft is
 
 end package;
 
-package body ALU_ft is
+package body ALUPkg is
 
   function add_ins( r1: std_logic_vector(31 downto 0);
                     r2: std_logic_vector(31 downto 0))

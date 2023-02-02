@@ -1,8 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.basic.all;
-use work.ALU_ft.all;
+use work.BasicPkg.all;
+use work.ALUPkg.all;
 
 entity ALU is
   port (

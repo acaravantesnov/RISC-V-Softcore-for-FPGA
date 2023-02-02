@@ -1,7 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.basic.all;
+use work.BasicPkg.all;
+use work.ComponentsPkg.all;
 
 entity RISCV_CPU_TB is
 end RISCV_CPU_TB;
