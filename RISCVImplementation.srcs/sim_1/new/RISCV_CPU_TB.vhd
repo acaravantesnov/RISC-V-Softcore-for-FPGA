@@ -49,17 +49,17 @@ begin
   
   SYS_CLOCK: process
   begin
-    clock <= not ACTIVE;
+    clock <= '0';
     wait for 5ns;
-    clock <= ACTIVE;
+    clock <= '1';
     wait for 5 ns;
   end process SYS_CLOCK;
     
   SYS_RESET: process
   begin
-    reset <= ACTIVE;
+    reset <= '1';
     wait for 100 ns;
-    reset <= not ACTIVE;
+    reset <= '0';
     wait;
   end process SYS_RESET;
     
@@ -68,11 +68,11 @@ begin
     rs1 <= (others => '0');
     rs2 <= (others => '0');
     rd <= (others => '0');
-    regWriteEn <= ACTIVE;
+    regWriteEn <= '1';
     ALUControl <= "0000";
-    memReadEn <= not ACTIVE;
-    memWriteEn <= not ACTIVE;
-    ALUMemSel <= ACTIVE;
+    memReadEn <= '0';
+    memWriteEn <= '0';
+    ALUMemSel <= '1';
     wait for 50 us;
     rs1 <= to_unsigned(1, 5);
     rs2 <= to_unsigned(2, 5);

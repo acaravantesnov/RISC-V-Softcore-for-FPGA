@@ -59,7 +59,7 @@ begin
       if (to_integer(rd) = i) then
         r_WriteEn(i) <= regWriteEn;
       else
-        r_WriteEn(i) <= not ACTIVE;
+        r_WriteEn(i) <= '0';
       end if;
     end loop;
 	end process;

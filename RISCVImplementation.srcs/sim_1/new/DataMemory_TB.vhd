@@ -34,19 +34,19 @@ begin
 
   SYS_CLOCK: process
   begin
-    clock <= not ACTIVE;
+    clock <= '0';
     wait for 5ns;
-    clock <= ACTIVE;
+    clock <= '1';
     wait for 5 ns;
   end process SYS_CLOCK;
     
   DATAMEMORY_DRIVER: process
   begin
-    memWriteEn <= not ACTIVE;
+    memWriteEn <= '0';
     dataIn <= std_logic_vector(to_unsigned(1, 32));
     address <= (2 => '1', 0 => '1', others => '0');
     wait for 50 us;
-    memWriteEn <= ACTIVE;
+    memWriteEn <= '1';
     wait;
   end process DATAMEMORY_DRIVER;
     

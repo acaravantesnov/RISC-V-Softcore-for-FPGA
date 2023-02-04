@@ -38,29 +38,29 @@ begin
       r2 => r2Sig
     );
     
-    ALU_U: ALU
-      port map(
-        r1 => r1Sig,
-        r2 => r2Sig,
-        control => ALUControl,
-        resultValue => ALUResult
-      );
-      
-    MEM_U: DataMemory
-      port map(
-        memWriteEn => memWriteEn,
-        memReadEn => memReadEn,
-        address => ALUResult,
-        dataIn => r2Sig,
-        clock => clock,
-        dataOut => memOut
-      );
-      
-    with ALUMemSel select MUXOutSig <=
-      memOut when ACTIVE,
-      ALUResult when not ACTIVE,
-      (others => '0') when others;
-      
-    MUXOut <= MUXOutSig;
+  ALU_U: ALU
+    port map(
+      r1 => r1Sig,
+      r2 => r2Sig,
+      control => ALUControl,
+      resultValue => ALUResult
+    );
+    
+  MEM_U: DataMemory
+    port map(
+      memWriteEn => memWriteEn,
+      memReadEn => memReadEn,
+      address => ALUResult,
+      dataIn => r2Sig,
+      clock => clock,
+      dataOut => memOut
+    );
+    
+  with ALUMemSel
+    select MUXOutSig <= memOut          when '1',
+                        ALUResult       when '0',
+                        (others => '0') when others;
+
+  MUXOut <= MUXOutSig;
 
 end RISCV_CPU_ARCH;

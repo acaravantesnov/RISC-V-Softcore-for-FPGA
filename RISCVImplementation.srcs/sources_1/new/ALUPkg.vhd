@@ -1,25 +1,24 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
 use ieee.numeric_std.all;
 
 package ALUPkg is
 
-  function add_ins( r1: std_logic_vector(31 downto 0);
-                    r2: std_logic_vector(31 downto 0))
-                    return std_logic_vector;
+  function add_ins( r1: signed(31 downto 0);
+                    r2: signed(31 downto 0))
+                    return signed;
   
-  function sub_ins( r1: std_logic_vector(31 downto 0);
-                    r2: std_logic_vector(31 downto 0))
-                    return std_logic_vector;
+  function sub_ins( r1: signed(31 downto 0);
+                    r2: signed(31 downto 0))
+                    return signed;
   
   function sll_ins( r1: unsigned(31 downto 0);
                     r2: unsigned(31 downto 0))
                     return unsigned;
                     
-  function slt_ins( r1: std_logic_vector(31 downto 0);
-                    r2: std_logic_vector(31 downto 0))
-                    return std_logic_vector;                  
+  function slt_ins( r1: signed(31 downto 0);
+                    r2: signed(31 downto 0))
+                    return signed;                  
 
   function sltu_ins(  r1: unsigned(31 downto 0);
                       r2: unsigned(31 downto 0))
@@ -37,19 +36,19 @@ end package;
 
 package body ALUPkg is
 
-  function add_ins( r1: std_logic_vector(31 downto 0);
-                    r2: std_logic_vector(31 downto 0))
-                    return std_logic_vector is
-    variable temp: std_logic_vector(32 downto 0);
+  function add_ins( r1: signed(31 downto 0);
+                    r2: signed(31 downto 0))
+                    return signed is
+    variable temp: signed(32 downto 0);
   begin
     temp := ('0' & r1) + ('0' & r2);
     return (temp);
   end function;
   
-  function sub_ins( r1: std_logic_vector(31 downto 0);
-                    r2: std_logic_vector(31 downto 0))
-                    return std_logic_vector is
-    variable temp: std_logic_vector(32 downto 0);
+  function sub_ins( r1: signed(31 downto 0);
+                    r2: signed(31 downto 0))
+                    return signed is
+    variable temp: signed(32 downto 0);
   begin
     temp := ('0' & r1) - ('0' & r2);
     return (temp);
@@ -66,12 +65,12 @@ package body ALUPkg is
     return (temp);
   end function;
   
-  function slt_ins( r1: std_logic_vector(31 downto 0);
-                    r2: std_logic_vector(31 downto 0))
-                    return std_logic_vector is
-  variable temp: std_logic_vector(32 downto 0);
+  function slt_ins( r1: signed(31 downto 0);
+                    r2: signed(31 downto 0))
+                    return signed is
+  variable temp: signed(32 downto 0);
   begin
-    if (to_integer(signed(r1)) < to_integer(signed(r2))) then
+    if (to_integer(r1) < to_integer(r2)) then
       temp := (0 => '1', others => '0');
     else
       temp := (others => '0');

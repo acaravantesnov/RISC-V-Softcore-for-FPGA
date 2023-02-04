@@ -19,10 +19,10 @@ begin
 
   SINGLEREGISTER_DRIVER: process(reset, clock)
   begin
-    if (reset = ACTIVE) then
+    if (reset = '1') then
       output <= (others => '0');
     elsif (rising_edge(clock)) then
-      if (writeEn = ACTIVE) then
+      if (writeEn = '1') then
         output <= input;
       end if;
     end if;

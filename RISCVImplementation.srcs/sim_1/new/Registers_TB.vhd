@@ -44,29 +44,29 @@ begin
 
   SYS_CLOCK: process
   begin
-    clock <= not ACTIVE;
+    clock <= '0';
     wait for 5ns;
-    clock <= ACTIVE;
+    clock <= '1';
     wait for 5 ns;
   end process SYS_CLOCK;
     
   SYS_RESET: process
   begin
-    reset <= ACTIVE;
+    reset <= '1';
     wait for 100 ns;
-    reset <= not ACTIVE;
+    reset <= '0';
     wait;
   end process SYS_RESET;
     
   REGISTERS_DRIVER: process
   begin
-    regWriteEn <= not ACTIVE;
+    regWriteEn <= '0';
     writeData <= std_logic_vector(to_unsigned(1, 32));
     rs1 <= to_unsigned(0, 5);
     rs2 <= to_unsigned(0, 5);
     rd <= to_unsigned(0, 5);
     wait for 50 us;
-    regWriteEn <= ACTIVE;
+    regWriteEn <= '1';
     wait;
   end process REGISTERS_DRIVER;
     

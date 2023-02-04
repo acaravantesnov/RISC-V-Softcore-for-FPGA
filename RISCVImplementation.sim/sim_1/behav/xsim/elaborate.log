@@ -13,8 +13,6 @@ Compiling package ieee.std_logic_1164
 Compiling package ieee.numeric_std
 Compiling package work.basicpkg
 Compiling package work.componentspkg
-Compiling package ieee.std_logic_arith
-Compiling package ieee.std_logic_unsigned
 Compiling package work.alupkg
 Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [singleregister_default]
 Compiling architecture registers_arch of entity xil_defaultlib.Registers [registers_default]

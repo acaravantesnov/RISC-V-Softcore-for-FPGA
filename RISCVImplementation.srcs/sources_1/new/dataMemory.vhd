@@ -20,6 +20,7 @@ architecture DataMemory_ARCH of DataMemory is
 
   type ram_type is array(0 to (2 ** 16) - 1) of std_logic_vector(31 downto 0);
   signal ram: ram_type;
+  signal readAddress: std_logic_vector(31 downto 0);
 
 begin
 
@@ -27,20 +28,14 @@ begin
   STORE: process(clock)
   begin
     if (rising_edge(clock)) then
-      if ((memWriteEn = ACTIVE) and (memReadEn = not ACTIVE)) then
+      if (memWriteEn = '1') then
         ram(to_integer(unsigned(address))) <= dataIn;
       end if;
+      readAddress <= address;
     end if;
   end process STORE;
 
   -- Load: Read memory and update register.
-  LOAD: process(clock)
-  begin
-    if (rising_edge(clock)) then
-      if ((memReadEn = ACTIVE) and (memWriteEn = not ACTIVE)) then
-        dataOut <= ram(to_integer(unsigned(address)));
-      end if;
-    end if;
-  end process;
+  dataOut <= ram(to_integer(unsigned(readAddress)));
 
 end architecture DataMemory_ARCH;
