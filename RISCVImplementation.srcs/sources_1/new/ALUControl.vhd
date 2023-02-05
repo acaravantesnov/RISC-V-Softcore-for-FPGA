@@ -13,10 +13,10 @@ architecture ALUControl_ARCH of ALUControl is
 
 begin
 
-  with ALUop
-    select output <=  "0000"              when "00" -- lw or sw
-                      "1000"              when "01" -- beq
-                      ()                  when "10" -- R-type
-                      (others => '0')     when others;
+  --with ALUop
+    --select output <=  "0000"              when "00" -- lw or sw
+                      --"1000"              when "01" -- beq
+                      --()                  when "10" -- R-type
+                      --(others => '0')     when others;
 
 end ALUControl_ARCH;

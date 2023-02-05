@@ -17,11 +17,7 @@ end DataMemory;
 architecture DataMemory_ARCH of DataMemory is
 
   type ram_type is array(0 to (RAM_SIZE) - 1) of std_logic_vector(31 downto 0);
-  signal ram: ram_type := (
-    (0 => X"00000000",
-     1 => X"00000001",
-     others => X"00000000")
-  );
+  signal ram: ram_type;
   signal readAddress: std_logic_vector(31 downto 0);
 
 begin

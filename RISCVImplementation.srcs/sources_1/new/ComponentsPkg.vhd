@@ -4,6 +4,21 @@ use ieee.numeric_std.all;
 
 package ComponentsPkg is
 
+  component ProgramCounter is
+    port(
+      nextAddress:    in std_logic_vector(31 downto 0);
+      clock:          in std_logic;
+      currentAddress: out std_logic_vector(31 downto 0)
+    );
+  end component;
+  
+  component InstructionMemory is
+    port(
+      readAddress: in std_logic_vector(31 downto 0);
+      instruction: out std_logic_vector(31 downto 0)
+    );
+  end component;
+
   component Registers is
     port(
       rs1:        in unsigned(4 downto 0);
@@ -45,6 +60,14 @@ package ComponentsPkg is
       input:  in std_logic_vector(31 downto 0);
       immSel: in std_logic_vector(1 downto 0);
       output: out std_logic_vector(31 downto 0)
+    );
+  end component;
+  
+  component ALUControl is
+    port(
+      input:  in std_logic_vector(9 downto 0);
+      ALUop:  in std_logic_vector(1 downto 0);
+      output: out std_logic_vector(3 downto 0)
     );
   end component;
 
