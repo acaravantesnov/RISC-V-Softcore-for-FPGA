@@ -39,5 +39,13 @@ package ComponentsPkg is
       dataOut:    out std_logic_vector(31 downto 0)
     );
   end component;
+  
+  component ImmSelect is
+    port (
+      input:  in std_logic_vector(31 downto 0);
+      immSel: in std_logic_vector(1 downto 0);
+      output: out std_logic_vector(31 downto 0)
+    );
+  end component;
 
 end package;

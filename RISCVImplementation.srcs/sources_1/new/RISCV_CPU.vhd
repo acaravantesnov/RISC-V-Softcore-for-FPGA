@@ -55,7 +55,7 @@ begin
       clock => clock,
       dataOut => memOut
     );
-    
+
   with ALUMemSel
     select MUXOutSig <= memOut          when '1',
                         ALUResult       when '0',

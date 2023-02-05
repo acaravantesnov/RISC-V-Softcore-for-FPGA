@@ -65,18 +65,7 @@ begin
     
   RISCV_CPUDRIVER: process
   begin
-    rs1 <= (others => '0');
-    rs2 <= (others => '0');
-    rd <= (others => '0');
-    regWriteEn <= '1';
-    ALUControl <= "0000";
-    memReadEn <= '0';
-    memWriteEn <= '0';
-    ALUMemSel <= '1';
-    wait for 50 us;
-    rs1 <= to_unsigned(1, 5);
-    rs2 <= to_unsigned(2, 5);
-    rd <= to_unsigned(3, 5);
+    
     wait;
   end process;
 
