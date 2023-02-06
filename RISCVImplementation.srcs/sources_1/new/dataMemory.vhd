@@ -6,7 +6,6 @@ use work.BasicPkg.all;
 entity DataMemory is
   port(
     memWriteEn: in std_logic;
-    memReadEn:  in std_logic;
     address:    in std_logic_vector(31 downto 0);
     dataIn:     in std_logic_vector(31 downto 0);
     clock:      in std_logic;

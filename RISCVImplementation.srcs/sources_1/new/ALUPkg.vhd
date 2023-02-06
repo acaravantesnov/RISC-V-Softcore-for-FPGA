@@ -61,7 +61,7 @@ package body ALUPkg is
     variable temp: unsigned(32 downto 0);
   begin
     sizeToShift := to_integer(r2(4 downto 0));
-    temp := '0' & shift_left(unsigned(r1), sizeToShift);
+    temp := '0' & shift_left(r1, sizeToShift);
     return (temp);
   end function;
   
@@ -98,7 +98,7 @@ package body ALUPkg is
     variable temp: unsigned(32 downto 0);
   begin
     sizeToShift := to_integer(r2(4 downto 0));
-    temp := '0' & shift_right(unsigned(r1), sizeToShift);
+    temp := '0' & shift_right(r1, sizeToShift);
     return (temp);
   end function;
   
@@ -109,7 +109,7 @@ package body ALUPkg is
     variable temp: unsigned(32 downto 0);
   begin
     sizeToShift := to_integer(r2(4 downto 0));
-    temp := '0' & shift_right(unsigned(r1), sizeToShift);
+    temp := '0' & shift_right(r1, sizeToShift);
     return (temp);
   end function;
 

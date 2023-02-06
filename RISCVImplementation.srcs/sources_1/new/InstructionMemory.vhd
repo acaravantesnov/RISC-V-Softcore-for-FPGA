@@ -11,9 +11,9 @@ entity InstructionMemory is
 end InstructionMemory;
 
 architecture InstructionMemory_ARCH of InstructionMemory is
-  type ram_type is array(0 to (RAM_SIZE) - 1) of std_logic_vector(31 downto 0);
+  type ram_type is array(0 to (RAM_SIZE) - 1) of std_logic_vector(7 downto 0);
   signal ram: ram_type := (
-    (others => X"00000000")
+    (others => X"00")
   );
 begin
   instruction <= ram(to_integer(unsigned(readAddress)));

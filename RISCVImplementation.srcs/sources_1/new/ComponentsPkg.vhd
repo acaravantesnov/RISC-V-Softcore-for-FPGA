@@ -32,12 +32,27 @@ package ComponentsPkg is
       r2:         out std_logic_vector(31 downto 0)
      );
   end component;
+  
+  component ControlUnit is
+    port(
+      instruction:  in  std_logic_vector(6 downto 0);
+      regWriteEn:   out std_logic;
+      ALUOp:        out std_logic_vector(1 downto 0);
+      immSel:       out std_logic_vector(1 downto 0);
+      regImmSel:    out std_logic;
+      branch:       out std_logic;
+      memWriteEn:   out std_logic;
+      memReadEn:    out std_logic;
+      ALUMemSel:    out std_logic
+    );
+  end component;
     
   component ALU is
     port (
       r1:           in std_logic_vector(31 downto 0);
       r2:           in std_logic_vector(31 downto 0);
       control:      in std_logic_vector(3 downto 0);
+      zero:         out std_logic;
       cOut:         out std_logic;
       overflow:     out std_logic;
       resultValue:  out std_logic_vector(31 downto 0)
@@ -47,7 +62,6 @@ package ComponentsPkg is
   component DataMemory is
     port(
       memWriteEn: in std_logic;
-      memReadEn:  in std_logic;
       address:    in std_logic_vector(31 downto 0);
       dataIn:     in std_logic_vector(31 downto 0);
       clock:      in std_logic;
