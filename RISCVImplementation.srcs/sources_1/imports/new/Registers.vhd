@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.BasicPkg.all;
+use work.ComponentsPkg.all;
 
 entity Registers is
 	port(
@@ -18,16 +19,6 @@ entity Registers is
 end Registers;
 
 architecture Registers_ARCH of Registers is
-
-	component singleRegister is
-		port(
-			input:   in std_logic_vector(31 downto 0);
-			writeEn: in std_logic;
-			reset:   in std_logic;
-			clock:   in std_logic;
-			output:  out std_logic_vector(31 downto 0)
-		);
-	end component;
 
 	type t_Input is array (31 downto 0) of std_logic_vector(31 downto 0);
 	signal r_Input: t_Input;

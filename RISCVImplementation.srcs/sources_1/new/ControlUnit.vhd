@@ -5,14 +5,9 @@ use work.BasicPkg.all;
 
 entity ControlUnit is
   port(
-    instruction:  in  std_logic_vector(6 downto 0);
-    regWriteEn:   out std_logic;
-    ALUOp:        out std_logic_vector(1 downto 0);
-    immSel:       out std_logic_vector(1 downto 0);
-    regImmSel:    out std_logic;
-    branch:       out std_logic;
-    memWriteEn:   out std_logic;
-    ALUMemSel:    out std_logic
+    instruction:  in  std_logic_vector(31 downto 0);
+    clock:        in  std_logic;
+    microcode:    out std_logic_vector(9 downto 0)
   );
 end ControlUnit;
 

@@ -18,6 +18,16 @@ package ComponentsPkg is
       instruction: out std_logic_vector(31 downto 0)
     );
   end component;
+  
+  component singleRegister is
+		port(
+			input:   in std_logic_vector(31 downto 0);
+			writeEn: in std_logic;
+			reset:   in std_logic;
+			clock:   in std_logic;
+			output:  out std_logic_vector(31 downto 0)
+		);
+	end component;
 
   component Registers is
     port(
@@ -35,15 +45,9 @@ package ComponentsPkg is
   
   component ControlUnit is
     port(
-      instruction:  in  std_logic_vector(6 downto 0);
-      regWriteEn:   out std_logic;
-      ALUOp:        out std_logic_vector(1 downto 0);
-      immSel:       out std_logic_vector(1 downto 0);
-      regImmSel:    out std_logic;
-      branch:       out std_logic;
-      memWriteEn:   out std_logic;
-      memReadEn:    out std_logic;
-      ALUMemSel:    out std_logic
+      instruction:  in  std_logic_vector(31 downto 0);
+      clock:        in  std_logic;
+      microcode:    out std_logic_vector(9 downto 0)
     );
   end component;
     
