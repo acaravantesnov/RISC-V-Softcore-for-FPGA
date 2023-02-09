@@ -4,6 +4,9 @@ use ieee.numeric_std.all;
 use work.BasicPkg.all;
 
 entity DataMemory is
+  generic(
+    RAM_SIZE:   integer := 2 ** 16
+  );
   port(
     memWriteEn: in std_logic;
     address:    in std_logic_vector(31 downto 0);
