@@ -6,6 +6,8 @@ use work.BasicPkg.all;
 entity ControlUnit is
   port(
     instruction:  in  std_logic_vector(31 downto 0);
+    comparison:   in  std_logic_vector(2 downto 0);
+    reset:        in  std_logic;
     clock:        in  std_logic;
     microcode:    out std_logic_vector(9 downto 0)
   );

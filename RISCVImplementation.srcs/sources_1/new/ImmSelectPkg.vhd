@@ -3,29 +3,29 @@ use ieee.std_logic_1164.all;
 
 package ImmSelectPkg is
 
-  function I_type(  input:std_logic_vector(31 downto 0))
+  function I_type(  input: std_logic_vector(31 downto 0))
                     return std_logic_vector;
                     
-  function B_type(  input:std_logic_vector(31 downto 0))
+  function B_type(  input: std_logic_vector(31 downto 0))
                     return std_logic_vector;
                     
-  function S_type(  input:std_logic_vector(31 downto 0))
+  function S_type(  input: std_logic_vector(31 downto 0))
                     return std_logic_vector;
 
 end package;
 
 package body ImmSelectPkg is
 
-  function I_type(  input:std_logic_vector(31 downto 0))
-                      return std_logic_vector is
+  function I_type(  input: std_logic_vector(31 downto 0))
+                    return std_logic_vector is
     variable ImmValue: std_logic_vector(31 downto 0) := (others => input(31));
   begin
     ImmValue(11 downto 0) := input(31 downto 20);
     return ImmValue;
   end function;
 
-  function B_type(  input:std_logic_vector(31 downto 0))
-                      return std_logic_vector is
+  function B_type(  input: std_logic_vector(31 downto 0))
+                    return std_logic_vector is
     variable ImmValue: std_logic_vector(31 downto 0) := (others => input(31));
   begin
     ImmValue(11) := input(7);
@@ -36,7 +36,7 @@ package body ImmSelectPkg is
   end function;
 
   function S_type(  input:std_logic_vector(31 downto 0))
-                      return std_logic_vector is
+                    return std_logic_vector is
     variable ImmValue: std_logic_vector(31 downto 0) := (others => input(31));
   begin
     ImmValue(11 downto 5) := input(31 downto 25);

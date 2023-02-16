@@ -46,6 +46,8 @@ package ComponentsPkg is
   component ControlUnit is
     port(
       instruction:  in  std_logic_vector(31 downto 0);
+      comparison:   in  std_logic_vector(2 downto 0);
+      reset:        in  std_logic;
       clock:        in  std_logic;
       microcode:    out std_logic_vector(9 downto 0)
     );
@@ -60,6 +62,26 @@ package ComponentsPkg is
       cOut:         out std_logic;
       overflow:     out std_logic;
       resultValue:  out std_logic_vector(31 downto 0)
+    );
+  end component;
+  
+  component JumpControl is
+    port(
+      jumpSel:    in  std_logic;
+      PCPlus4:    in  std_logic_vector(31 downto 0);
+      branch:     in  std_logic_vector(31 downto 0);
+      PCSel:      in  std_logic;
+      ALUresult:  in  std_logic_vector(31 downto 0);
+      nextPC:     out std_logic_vector(31 downto 0)
+    );
+  end component;
+  
+  component BranchControl is
+    port(
+      branch:       in  std_logic;
+      forceBranch:  in  std_logic;
+      zero:         in  std_logic;
+      PCSel:        out std_logic
     );
   end component;
 
@@ -86,6 +108,15 @@ package ComponentsPkg is
       input:  in std_logic_vector(9 downto 0);
       ALUop:  in std_logic_vector(1 downto 0);
       output: out std_logic_vector(3 downto 0)
+    );
+  end component;
+  
+  component LoadControl is
+    port(
+      MUXOutSig:        in  std_logic_vector(31 downto 0);
+      nBits:            in  std_logic_vector(1 downto 0);
+      signedOrUnsigned: in  std_logic;
+      LoadControl:      out std_logic_vector(31 downto 0)
     );
   end component;
 

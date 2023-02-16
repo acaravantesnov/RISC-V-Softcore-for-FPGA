@@ -19,6 +19,7 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal aux1:              std_logic_vector(9 downto 0);
   signal inst:              std_logic_vector(31 downto 0);
   signal MUXOutSig:         std_logic_vector(31 downto 0);
+  signal writeData:         std_logic_vector(31 downto 0);
   signal ALUControlSig:     std_logic_vector(3 downto 0);
   signal immValue:          std_logic_vector(31 downto 0);
   signal r1Sig, r2Sig:      std_logic_vector(31 downto 0);
@@ -29,9 +30,13 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal zeroSig:           std_logic;
   signal ALUResult:         std_logic_vector(31 downto 0);
   signal memOut:            std_logic_vector(31 downto 0);
+  signal loadControlOut:    std_logic_vector(31 downto 0);
+  signal comp:              std_logic_vector(2 downto 0);
 
-  -- insRegEn & regWriteEn & ALUOp & immSel & regImmSel & branch & memWriteEn & ALUMemSel
-  signal microcode:         std_logic_vector(9 downto 0);
+  -- insRegEn & ALUop & immSel & regWiteEn & wdSel & regImmSel &
+  -- jumpSel & branch & forceBranch & memWriteEn & ALUMemSel &
+  -- nbits & signedOrUnsigned
+  signal microcode:         std_logic_vector(15 downto 0);
 
 begin
 
@@ -59,7 +64,7 @@ begin
   INS_REG: singleRegister
     port map(
       input => newIns,
-      writeEn => microcode(9),
+      writeEn => microcode(15),
       reset => reset,
       clock => clock,
       output => inst
@@ -69,24 +74,27 @@ begin
   ALUCONTR_U: ALUControl
     port map(
       input => aux1,
-      ALUOp => microcode(7 downto 6),
+      ALUOp => microcode(14 downto 13),
       output => ALUControlSig
     );
     
   IMMSEL_U: ImmSelect
     port map(
       input => inst,
-      immSel => microcode(5 downto 4),
+      immSel => microcode(12 downto 11),
       output => immValue
     );
 
-  REG_U: Registers
+  with microcode(9)
+    select writeData <= PCPlus4 when '0',
+                        loadControlOut when '1';
+  REGFILE_U: Registers
     port map(
       rs1 => unsigned(inst(19 downto 15)),
       rs2 => unsigned(inst(24 downto 20)),
       rd => unsigned(inst(11 downto 7)),
-      writeData => MUXOutSig,
-      regWriteEn => microcode(8),
+      writeData => writeData,
+      regWriteEn => microcode(10),
       clock => clock,
       reset => reset,
       r1 => r1Sig,
@@ -96,11 +104,13 @@ begin
   CU_U: ControlUnit
     port map(
       instruction => inst,
+      comparison => comp,
+      reset => reset,
       clock => clock,
       microcode => microcode
     );
 
-  with microcode(3)
+  with microcode(8)
     select regOrImm <=  immValue        when '0',
                         r2Sig           when '1',
                         (others => '0') when others;
@@ -108,7 +118,7 @@ begin
   aux2 <= std_logic_vector(shift_left(unsigned(immValue), 1));
   ADDALU_2_U: ALU
     port map(
-      r1 => PCPlus4,
+      r1 => currentPC,
       r2 => aux2,
       control => "0000",
       resultValue => br
@@ -122,25 +132,45 @@ begin
       zero => zeroSig,
       resultValue => ALUResult
     );
-  
-  PCSel <= microcode(2) and zeroSig;
-  with PCSel
-    select nextPC <=  PCPlus4         when '0',
-                      br              when '1',
-                      (others => '0') when others;
     
+  JUMPC_U: JumpControl
+    port map(
+      jumpSel => microcode(7),
+      PCPlus4 => PCPlus4,
+      branch => br,
+      PCSel => PCSel,
+      ALUresult => ALUresult,
+      nextPC => nextPC
+    );
+    
+  BRANCHC_U: BranchControl
+    port map(
+      branch => microcode(6),
+      forceBranch => microcode(5),
+      zero => zeroSig,
+      PCSel => PCSel
+    );
+
   MEM_U: DataMemory
     port map(
-      memWriteEn => microcode(1),
+      memWriteEn => microcode(4),
       address => ALUResult,
       dataIn => r2Sig,
       clock => clock,
       dataOut => memOut
     );
 
-  with microcode(0)
+  with microcode(3)
     select MUXOutSig <= memOut          when '0',
                         ALUResult       when '1',
                         (others => '0') when others;
+                        
+  LOADC_U: LoadControl
+    port map(
+      MUXOutSig => MUXOutSig,
+      nBits => microcode(2 downto 1),
+      signedOrUnsigned => microcode(0),
+      LoadControl => LoadControlOut
+    );
 
 end RISCV_CPU_ARCH;
