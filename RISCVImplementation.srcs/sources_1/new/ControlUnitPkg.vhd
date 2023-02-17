@@ -1,64 +1,72 @@
+--******************************************************************************
+--*
+--* Name: ControlUnitPkg
+--* Designer: Alberto Caravantes
+--*
+--* 
+--*
+--******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 
 package ControlUnitPkg is
 
-  procedure fetch(  instruction:  std_logic_vector(31 downto 0);
-                    comparison:   std_logic_vector(2 downto 0));
-                    
-  procedure saveToReg(  instruction:  std_logic_vector(31 downto 0);
-                        comparison:   std_logic_vector(2 downto 0));
+  function decode(  instruction:  std_logic_vector(31 downto 0);
+                    comparison:   std_logic_vector(2 downto 0))
+                    return std_logic_vector;
 
-  procedure saveToMem(  instruction:  std_logic_vector(31 downto 0);
-                        comparison:   std_logic_vector(2 downto 0));
+  function saveToReg(  instruction:  std_logic_vector(31 downto 0);
+                       comparison:   std_logic_vector(2 downto 0))
+                       return std_logic_vector;
 
-end ControlUnitPkg;
+  function saveToMem(  instruction:  std_logic_vector(31 downto 0);
+                       comparison:   std_logic_vector(2 downto 0))
+                       return std_logic_vector;
+
+end package;
 
 package body ControlUnitPkg is
-
-  procedure fetch(  instruction:  std_logic_vector(31 downto 0);
-                    comparison:   std_logic_vector(2 downto 0)) is
+  
+  function decode(  instruction:  std_logic_vector(31 downto 0);
+                    comparison:   std_logic_vector(2 downto 0))
+                    return std_logic_vector is
+    variable microcode: std_logic_vector(15 downto 0);
   begin
-
     case instruction(6 downto 0) is
       when "0110011" => -- R-type
-        case instruction(30) & instruction(14 downto 12) is
-          when "0000" => -- add
-          
-          when "1000" => -- sub
-          
-          when "0001" => -- sll
-          
-          when "0010" => -- slt
-          
-          when "0011" => -- sltu
-          
-          when "0100" => -- xor
-          
-          when "0101" => -- srl
-          
-          when "1101" => -- sra
-          
-          when "0110" => -- or
-          
-          when "0111" => -- and
-          
-        end case;       
-        
+        microcode := "1100001100001100";
+      when "0000011" => -- I-type Loads
+        case instruction(14 downto 12) is
+          when "000" => -- lb
+            microcode := "";
+          when "001" => -- lh
+            microcode := "";
+          when "010" => -- lw
+            microcode := "";
+          when "100" => -- lbu
+            microcode := "";
+          when "101" => -- lhu
+            microcode := "";
+        end case;
+      when "0010011" => -- I-type
+        microcode := "";
     end case;
-
-  end procedure;
+    return (microcode);
+  end function decode;
   
-  procedure saveToReg(  instruction:  std_logic_vector(31 downto 0);
-                        comparison:   std_logic_vector(2 downto 0)) is
+  function saveToReg(  instruction:  std_logic_vector(31 downto 0);
+                       comparison:   std_logic_vector(2 downto 0))
+                       return std_logic_vector is
   begin
   
-  end procedure;
+  end function saveToReg;
   
-  procedure saveToMem(  instruction:  std_logic_vector(31 downto 0);
-                        comparison:   std_logic_vector(2 downto 0)) is
+  function saveToMem(  instruction:  std_logic_vector(31 downto 0);
+                       comparison:   std_logic_vector(2 downto 0))
+                       return std_logic_vector is
   begin
   
-  end procedure;
+  end function saveToMem;
 
-end ControlUnitPkg;
+end package body;

@@ -1,3 +1,12 @@
+--******************************************************************************
+--*
+--* Name: RISCV_CPU
+--* Designer: Alberto Caravantes
+--*
+--* 
+--*
+--******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -43,6 +52,7 @@ begin
   PC_U: ProgramCounter
     port map(
       nextAddress => nextPC,
+      reset => reset;
       clock => clock,
       currentAddress => currentPC
     );

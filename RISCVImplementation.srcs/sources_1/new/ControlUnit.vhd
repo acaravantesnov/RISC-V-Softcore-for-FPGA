@@ -1,3 +1,12 @@
+--******************************************************************************
+--*
+--* Name: ControlUnit
+--* Designer: Alberto Caravantes
+--*
+--* 
+--*
+--******************************************************************************
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -10,14 +19,14 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(9 downto 0)
+    microcode:    out std_logic_vector(15 downto 0)
   );
 end ControlUnit;
 
 architecture ControlUnit_ARCH of ControlUnit is
 
   ----state-machine-declarations---------------------------------------SIGNALS
-  type States_t is (START, FETCH, IDLE, SAVE_TO_REG, SAVE_TO_MEM);
+  type States_t is (START, FETCH, DECODE, SAVE_TO_REG, SAVE_TO_MEM);
   signal currentState:  States_t;
   signal nextState:     States_t;
 
@@ -37,23 +46,25 @@ begin
 
     case currentState is
       when START =>
+        microcode <= (others => '0');
         nextState <= FETCH;
       when FETCH =>
-        fetch(instruction, comparison);
-        nextState <= IDLE;
-      when IDLE =>
-        microcode <= 
+        microcode(15) <= '1';
+        nextState <= DECODE;
+      when DECODE =>
+        microcode <= decode(instruction, comparison);
         if () then
           nextState <= SAVE_TO_REG;
         else
           nextState <= SAVE_TO_MEM;
         end if;
       when SAVE_TO_REG =>
-        saveToReg(instruction, comparison);
+        microcode <= saveToReg(instruction, comparison);
         nextState <= FETCH;
       when SAVE_TO_MEM =>
-        saveToMem(instruction, comparison);
+        microcode <= saveToMem(instruction, comparison);
         nextState <= FETCH;
+    end case;
   end process STATE_TRANSITION;
 
 end ControlUnit_ARCH;
