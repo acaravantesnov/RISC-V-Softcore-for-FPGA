@@ -21,6 +21,7 @@ architecture LoadControl_ARCH of LoadControl is
                     return std_logic_vector is
     variable vector:  std_logic_vector(31 downto 0);
   begin
+
     if (signedOrUnsigned = '0') then -- zx
       vector := (others => '0');
     elsif (signedOrUnsigned = '1') then -- sx
@@ -32,6 +33,7 @@ architecture LoadControl_ARCH of LoadControl is
     end if;
     vector(nOfBits - 1 downto 0) := MUXOutSig(nOfBits - 1 downto 0);
     return (vector);
+
   end function;
 
 begin
