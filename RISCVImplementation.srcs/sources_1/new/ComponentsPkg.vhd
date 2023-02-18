@@ -62,6 +62,14 @@ package ComponentsPkg is
       microcode:    out std_logic_vector(9 downto 0)
     );
   end component;
+  
+  component Comparison is
+  port(
+    r1:         in std_logic_vector(31 downto 0);
+    r2:         in std_logic_vector(31 downto 0);
+    comparison: out std_logic_vector(2 downto 0)
+  );
+  end component;
     
   component ALU is
     port (

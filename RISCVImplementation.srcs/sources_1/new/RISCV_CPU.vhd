@@ -52,7 +52,7 @@ begin
   PC_U: ProgramCounter
     port map(
       nextAddress => nextPC,
-      reset => reset;
+      reset => reset,
       clock => clock,
       currentAddress => currentPC
     );
@@ -120,14 +120,12 @@ begin
       microcode => microcode
     );
     
-  BRCOMP: process(r1Sig, r2Sig)
-  begin
-    if (to_integer(unsigned(r1Sig)) < to_integer(unsigned(r2Sig))) then
-      comp <= "01"; -- r1Sig < r2Sig
-    elsif (to_integer(unsigned(r1Sig)) > to_integer(unsigned(r2Sig))) then
-      comp <= "10"; -- r1Sig > r2Sig
-    end if;
-  end process;
+  COMP_U: Comparison
+    port map(
+      r1 => r1Sig,
+      r2 => r2Sig,
+      comparison => comp
+    );
 
   with microcode(8)
     select regOrImm <=  immValue        when '0',
