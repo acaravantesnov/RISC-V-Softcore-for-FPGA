@@ -46,8 +46,26 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   -- jumpSel & branch & forceBranch & memWriteEn & ALUMemSel &
   -- nbits & signedOrUnsigned
   signal microcode:         std_logic_vector(15 downto 0);
+  ----microcode-signals------------------------------------------------SIGNALS
+  signal insRegEn:          std_logic;
+  signal ALUOp:             std_logic_vector(1 downto 0);
+  signal immSel:            std_logic_vector(1 downto 0);
+  signal regWriteEn:        std_logic;
+  signal wdSel:             std_logic;
+  signal regImmSel:         std_logic;
+  signal jumpSel:           std_logic;
+  signal branch:            std_logic;
+  signal forceBranch:       std_logic;
+  signal memWriteEn:        std_logic;
+  signal ALUMemSel:         std_logic;
+  signal nBits:             std_logic_vector(1 downto 0);
+  signal signedOrUnsigned:  std_logic;
 
 begin
+
+  microcode <=  insRegEn & ALUOp & immSel & regWriteEn & wdSel & regImmSel &
+                jumpSel & branch & forceBranch & memWriteEn & ALUMemSel &
+                nBits & signedOrUnsigned;
 
   PC_U: ProgramCounter
     port map(
@@ -74,7 +92,7 @@ begin
   INS_REG: singleRegister
     port map(
       input => newIns,
-      writeEn => microcode(15),
+      writeEn => insRegEn,
       reset => reset,
       clock => clock,
       output => inst
@@ -84,27 +102,27 @@ begin
   ALUCONTR_U: ALUControl
     port map(
       input => aux1,
-      ALUOp => microcode(14 downto 13),
+      ALUOp => ALUOp,
       output => ALUControlSig
     );
     
   IMMSEL_U: ImmSelect
     port map(
       input => inst,
-      immSel => microcode(12 downto 11),
+      immSel => immSel,
       output => immValue
     );
 
-  with microcode(9)
+  with wdSel
     select writeData <= PCPlus4 when '0',
-                        loadControlOut when '1';
+                        loadControlOut when others;
   REGFILE_U: Registers
     port map(
       rs1 => unsigned(inst(19 downto 15)),
       rs2 => unsigned(inst(24 downto 20)),
       rd => unsigned(inst(11 downto 7)),
       writeData => writeData,
-      regWriteEn => microcode(10),
+      regWriteEn => regWriteEn,
       clock => clock,
       reset => reset,
       r1 => r1Sig,
@@ -127,7 +145,7 @@ begin
       comparison => comp
     );
 
-  with microcode(8)
+  with regImmSel
     select regOrImm <=  immValue        when '0',
                         r2Sig           when '1',
                         (others => '0') when others;
@@ -152,7 +170,7 @@ begin
     
   JUMPC_U: JumpControl
     port map(
-      jumpSel => microcode(7),
+      jumpSel => jumpSel,
       PCPlus4 => PCPlus4,
       branch => br,
       PCSel => PCSel,
@@ -162,22 +180,22 @@ begin
     
   BRANCHC_U: BranchControl
     port map(
-      branch => microcode(6),
-      forceBranch => microcode(5),
+      branch => branch,
+      forceBranch => forceBranch,
       zero => zeroSig,
       PCSel => PCSel
     );
 
   MEM_U: DataMemory
     port map(
-      memWriteEn => microcode(4),
+      memWriteEn => memWriteEn,
       address => ALUResult,
       dataIn => r2Sig,
       clock => clock,
       dataOut => memOut
     );
 
-  with microcode(3)
+  with ALUMemSel
     select MUXOutSig <= memOut          when '0',
                         ALUResult       when '1',
                         (others => '0') when others;
@@ -185,8 +203,8 @@ begin
   LOADC_U: LoadControl
     port map(
       MUXOutSig => MUXOutSig,
-      nBits => microcode(2 downto 1),
-      signedOrUnsigned => microcode(0),
+      nBits => nBits,
+      signedOrUnsigned => signedOrUnsigned,
       LoadControl => LoadControlOut
     );
 

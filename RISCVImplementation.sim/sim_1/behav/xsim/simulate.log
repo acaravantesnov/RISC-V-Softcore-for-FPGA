@@ -1,0 +1,6 @@
+Time resolution is 1 ps
+ERROR: Index 256 out of bound 0 to 255
+Time: 735 ns  Iteration: 3  Process: /RISCV_CPU_TB/UUT/INSMEM_U/line__42
+  File: C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/InstructionMemory.vhd
+
+HDL Line: C:/Users/acara/RISCVImplementation/RISCVImplementation.srcs/sources_1/new/InstructionMemory.vhd:42

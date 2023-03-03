@@ -44,25 +44,30 @@ begin
   STATE_TRANSITION: process(currentState, instruction, comparison)
   begin
 
+    microcode <= (others => '0');
+
     case currentState is
       when START =>
-        microcode <= (others => '0');
         nextState <= FETCH;
       when FETCH =>
         microcode(15) <= '1';
         nextState <= DECODE;
       when DECODE =>
         microcode <= decode(instruction, comparison);
-        if () then
+        if  ((instruction(6 downto 0) = "0110011") or     -- R-type
+            (instruction(6 downto 0) = "0010011") or      -- I-type
+            (instruction(6 downto 0) = "1100111")) then   -- I-type jalr
           nextState <= SAVE_TO_REG;
-        else
+        elsif (instruction(6 downto 0) = "0100011") then  -- S-type
           nextState <= SAVE_TO_MEM;
+        elsif (instruction(6 downto 0) = "1100011") then  -- B-type
+          nextState <= FETCH;
         end if;
       when SAVE_TO_REG =>
-        microcode <= saveToReg(instruction, comparison);
+        microcode(5) <= '1';
         nextState <= FETCH;
       when SAVE_TO_MEM =>
-        microcode <= saveToMem(instruction, comparison);
+        microcode(11) <= '1';
         nextState <= FETCH;
     end case;
   end process STATE_TRANSITION;

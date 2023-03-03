@@ -42,6 +42,7 @@ begin
   
   RISCV_CPU_DRIVER: process
   begin
+    reset <= '1';
     wait;
   end process;
 

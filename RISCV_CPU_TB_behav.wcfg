@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="RISCV_CPU_TB_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="RISCV_CPU_TB" />
+            <top_module name="alupkg" />
+            <top_module name="basicpkg" />
+            <top_module name="componentspkg" />
+            <top_module name="controlunitpkg" />
+            <top_module name="immselectpkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="449.626 ns"></ZoomEndTime>
+      <Cursor1Time time="735.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="162"></NameColumnWidth>
+      <ValueColumnWidth column_width="84"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/RISCV_CPU_TB/clock" type="logic">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/instruction" type="array">
+      <obj_property name="ElementShortName">instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/comparison" type="array">
+      <obj_property name="ElementShortName">comparison[2:0]</obj_property>
+      <obj_property name="ObjectShortName">comparison[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/clock" type="logic">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/microcode" type="array">
+      <obj_property name="ElementShortName">microcode[15:0]</obj_property>
+      <obj_property name="ObjectShortName">microcode[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/currentState" type="other">
+      <obj_property name="ElementShortName">currentState</obj_property>
+      <obj_property name="ObjectShortName">currentState</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/nextState" type="other">
+      <obj_property name="ElementShortName">nextState</obj_property>
+      <obj_property name="ObjectShortName">nextState</obj_property>
+   </wvobject>
+</wave_config>
