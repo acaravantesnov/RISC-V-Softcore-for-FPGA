@@ -45,8 +45,9 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   -- insRegEn & ALUop & immSel & regWiteEn & wdSel & regImmSel &
   -- jumpSel & branch & forceBranch & memWriteEn & ALUMemSel &
   -- nbits & signedOrUnsigned
-  signal microcode:         std_logic_vector(15 downto 0);
+  signal microcode:         std_logic_vector(16 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
+  signal PCEn:              std_logic;
   signal insRegEn:          std_logic;
   signal ALUOp:             std_logic_vector(1 downto 0);
   signal immSel:            std_logic_vector(1 downto 0);
@@ -63,13 +64,25 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
 
 begin
 
-  microcode <=  insRegEn & ALUOp & immSel & regWriteEn & wdSel & regImmSel &
-                jumpSel & branch & forceBranch & memWriteEn & ALUMemSel &
-                nBits & signedOrUnsigned;
+  PCEn              <= microcode(16);
+  insRegEn          <= microcode(15);
+  ALUOp             <= microcode(14 downto 13);
+  immSel            <= microcode(12 downto 11);
+  regWriteEn        <= microcode(10);
+  wdSel             <= microcode(9);
+  regImmSel         <= microcode(8);
+  jumpSel           <= microcode(7);
+  branch            <= microcode(6);
+  forceBranch       <= microcode(5);
+  memWriteEn        <= microcode(4);
+  ALUMemSel         <= microcode(3);
+  nBits             <= microcode(2 downto 1);
+  signedOrUnsigned  <= microcode(0);
 
   PC_U: ProgramCounter
     port map(
       nextAddress => nextPC,
+      PCEn => PCEn,
       reset => reset,
       clock => clock,
       currentAddress => currentPC

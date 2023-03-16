@@ -16,6 +16,7 @@ package ComponentsPkg is
   component ProgramCounter is
     port(
       nextAddress:    in std_logic_vector(31 downto 0);
+      PCEn:           in std_logic;
       reset:          in std_logic;
       clock:          in std_logic;
       currentAddress: out std_logic_vector(31 downto 0)
@@ -59,7 +60,7 @@ package ComponentsPkg is
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(15 downto 0)
+      microcode:    out std_logic_vector(16 downto 0)
     );
   end component;
   

@@ -13,6 +13,7 @@ use ieee.std_logic_1164.all;
 entity ProgramCounter is
   port(
     nextAddress:    in std_logic_vector(31 downto 0);
+    PCEn:           in std_logic;
     reset:          in std_logic;
     clock:          in std_logic;
     currentAddress: out std_logic_vector(31 downto 0)
@@ -29,7 +30,7 @@ begin
   begin
     if (reset = '1') then
       counter <= (others => '0');
-    elsif (rising_edge(clock)) then
+    elsif ((rising_edge(clock)) and (PCEn = '1')) then
       counter <= nextAddress;
     end if;
   end process;

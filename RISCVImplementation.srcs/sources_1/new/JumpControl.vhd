@@ -37,7 +37,7 @@ architecture JumpControl_ARCH of JumpControl is
     else
       if (PCSel = '0') then
         vector := PCPlus4;
-      elsif (PCSel = '0') then
+      elsif (PCSel = '1') then
         vector := branch;
       end if;
     end if;

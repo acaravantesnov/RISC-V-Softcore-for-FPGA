@@ -19,7 +19,7 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(15 downto 0)
+    microcode:    out std_logic_vector(16 downto 0)
   );
 end ControlUnit;
 
@@ -53,6 +53,7 @@ begin
         microcode(15) <= '1';
         nextState <= DECODE;
       when DECODE =>
+      
         microcode <= decode(instruction, comparison);
         if  ((instruction(6 downto 0) = "0110011") or     -- R-type
             (instruction(6 downto 0) = "0010011") or      -- I-type
@@ -61,13 +62,16 @@ begin
         elsif (instruction(6 downto 0) = "0100011") then  -- S-type
           nextState <= SAVE_TO_MEM;
         elsif (instruction(6 downto 0) = "1100011") then  -- B-type
+          microcode(16) <= '1';
           nextState <= FETCH;
         end if;
       when SAVE_TO_REG =>
-        microcode(5) <= '1';
+        microcode(16) <= '1';
+        microcode(10) <= '1';
         nextState <= FETCH;
       when SAVE_TO_MEM =>
-        microcode(11) <= '1';
+        microcode(16) <= '1';
+        microcode(4) <= '1';
         nextState <= FETCH;
     end case;
   end process STATE_TRANSITION;
