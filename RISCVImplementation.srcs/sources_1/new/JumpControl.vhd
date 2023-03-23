@@ -3,7 +3,12 @@
 --* Name: JumpControl
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that selects the nextPC based on the jumpSel and PCSel 1-bit
+--*	signals.
+--*
+--*	If jumpSel is equal to '1', the nextPC will be ALUresult.
+--*	However, if jumpSel is equal to '0', the nextPc will be PCPlus4 if PCSel is
+--*	'0', and branch if PCSel is '1'.
 --*
 --******************************************************************************
 

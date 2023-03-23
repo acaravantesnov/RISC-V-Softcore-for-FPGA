@@ -3,7 +3,10 @@
 --* Name: ControlUnit
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component implementing a Finite State Machine which, depending on the
+--*	current instruction and a comparison result, performs the neccessary
+--*	Fetch-Decode-Execute cycle by setting up a custom microcode for each state.
+--*	Microcode is made up of 17 bits (Consult RISCV_CPU.vhd for more info.).
 --*
 --******************************************************************************
 
@@ -53,7 +56,6 @@ begin
         microcode(15) <= '1';
         nextState <= DECODE;
       when DECODE =>
-      
         microcode <= decode(instruction, comparison);
         if  ((instruction(6 downto 0) = "0110011") or     -- R-type
             (instruction(6 downto 0) = "0010011") or      -- I-type

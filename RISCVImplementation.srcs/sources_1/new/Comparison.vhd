@@ -3,7 +3,11 @@
 --* Name: Comparison
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component which compares values from 2 registers and outputs a 3-bit signal
+--*	indicating the signed or unsigned comparison result.
+--*
+--*					r1 = r2		r1 < r2		r1 > r2		u(r1) < u(r2)		u(r1) >= u(r2)
+--*		COMP	000				001				010				011							100
 --*
 --******************************************************************************
 

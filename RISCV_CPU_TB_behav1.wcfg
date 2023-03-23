@@ -16,22 +16,31 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="309.670 ns"></ZoomEndTime>
-      <Cursor1Time time="115.667 ns"></Cursor1Time>
+      <ZoomEndTime time="355.647 ns"></ZoomEndTime>
+      <Cursor1Time time="129.768 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="162"></NameColumnWidth>
-      <ValueColumnWidth column_width="68"></ValueColumnWidth>
+      <NameColumnWidth column_width="148"></NameColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="8" />
    <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/instruction" type="array">
       <obj_property name="ElementShortName">instruction[31:0]</obj_property>
       <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/comparison" type="array">
-      <obj_property name="ElementShortName">comparison[2:0]</obj_property>
-      <obj_property name="ObjectShortName">comparison[2:0]</obj_property>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/microcode" type="array">
+      <obj_property name="ElementShortName">microcode[16:0]</obj_property>
+      <obj_property name="ObjectShortName">microcode[16:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output" type="array">
+      <obj_property name="ElementShortName">r_Output[31:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_Output[31:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/currentState" type="other">
+      <obj_property name="ElementShortName">currentState</obj_property>
+      <obj_property name="ObjectShortName">currentState</obj_property>
    </wvobject>
    <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/reset" type="logic">
       <obj_property name="ElementShortName">reset</obj_property>
@@ -41,57 +50,12 @@
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
    </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/microcode" type="array">
-      <obj_property name="ElementShortName">microcode[16:0]</obj_property>
-      <obj_property name="ObjectShortName">microcode[16:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/writeData" type="array">
+      <obj_property name="ElementShortName">writeData[31:0]</obj_property>
+      <obj_property name="ObjectShortName">writeData[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/currentState" type="other">
-      <obj_property name="ElementShortName">currentState</obj_property>
-      <obj_property name="ObjectShortName">currentState</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/nextState" type="other">
-      <obj_property name="ElementShortName">nextState</obj_property>
-      <obj_property name="ObjectShortName">nextState</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/PC_U/currentAddress" type="array">
-      <obj_property name="ElementShortName">currentAddress[31:0]</obj_property>
-      <obj_property name="ObjectShortName">currentAddress[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/PC_U/nextAddress" type="array">
-      <obj_property name="ElementShortName">nextAddress[31:0]</obj_property>
-      <obj_property name="ObjectShortName">nextAddress[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/PC_U/nextAddress" type="array">
-      <obj_property name="ElementShortName">nextAddress[31:0]</obj_property>
-      <obj_property name="ObjectShortName">nextAddress[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/PC_U/PCEn" type="logic">
-      <obj_property name="ElementShortName">PCEn</obj_property>
-      <obj_property name="ObjectShortName">PCEn</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/JUMPC_U/jumpSel" type="logic">
-      <obj_property name="ElementShortName">jumpSel</obj_property>
-      <obj_property name="ObjectShortName">jumpSel</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/JUMPC_U/PCPlus4" type="array">
-      <obj_property name="ElementShortName">PCPlus4[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PCPlus4[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/JUMPC_U/branch" type="array">
-      <obj_property name="ElementShortName">branch[31:0]</obj_property>
-      <obj_property name="ObjectShortName">branch[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/JUMPC_U/PCSel" type="logic">
-      <obj_property name="ElementShortName">PCSel</obj_property>
-      <obj_property name="ObjectShortName">PCSel</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/JUMPC_U/ALUresult" type="array">
-      <obj_property name="ElementShortName">ALUresult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUresult[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/JUMPC_U/nextPC" type="array">
-      <obj_property name="ElementShortName">nextPC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">nextPC[31:0]</obj_property>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/regWriteEn" type="logic">
+      <obj_property name="ElementShortName">regWriteEn</obj_property>
+      <obj_property name="ObjectShortName">regWriteEn</obj_property>
    </wvobject>
 </wave_config>

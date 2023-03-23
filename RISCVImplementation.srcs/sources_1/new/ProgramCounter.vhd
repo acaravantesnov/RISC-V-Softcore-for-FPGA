@@ -3,7 +3,10 @@
 --* Name: ProgramCounter
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that saves the new memory address for the Instruction Memory.
+--*	The address is made up of 32 bits. They are set to '0' when reset = '1'.
+--*	If rising_edge of the clock and PCEn is '1', counter sets the current
+--*	address to the next address.
 --*
 --******************************************************************************
 

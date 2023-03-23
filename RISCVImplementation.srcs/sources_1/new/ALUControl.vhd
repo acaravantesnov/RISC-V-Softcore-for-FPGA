@@ -3,7 +3,34 @@
 --* Name: ALUControl
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that given the ALUop signal indicationg a Load/ Store, beq, R-type
+--*	or I-type instruction, and the input (made of 31 downto 25 and 14 downto 12
+--*	of the 32-bit instruction), ot sets the appropriate output signal (control
+--*	for ALU).
+--*
+--*		ALUOP		INPUT					OUTPUT	INSTRUCTION
+--*		00			----------		0000		LW or SW
+--*		01			----------		1000		BEQ
+--*		10			0000000000		0000		ADD
+--*						0100000000		1000		SUB
+--*						0000000001		0001		SLL
+--*						0000000010		0010		SLT
+--*						0000000011		0011		SLTU
+--*						0000000100		0100		XOR
+--*						0000000101		0101		SRL
+--*						0100000101		1101		SRA
+--*						0000000110		0110		OR
+--*						0000000111		0111		AND
+--*		11			xxxxxxx000		0000		ADDI
+--*						xxxxxxx010		0010		SLTI
+--*						xxxxxxx011		0011		SLTIU
+--*						xxxxxxx100		0100		XORI
+--*						xxxxxxx110		0110		ORI
+--*						xxxxxxx111		0111		ANDI
+--*						0000000001		0001		SLLI
+--*						0000000101		0101		SRLI
+--*						0100000101		1101		SRAI
+--*		others	----------		0000		LW or SW
 --*
 --******************************************************************************
 

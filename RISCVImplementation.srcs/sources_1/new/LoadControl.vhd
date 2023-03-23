@@ -4,7 +4,16 @@
 
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that restricts the size of the input that will be carried to the
+--*	output. It is useful for loads which differ by the size (i.e. LB, LH and LW
+--*	are 8, 16 and 32 bits respectively).
+--*	It also manages if the word will be obtained through sign extension or not.
+--*
+--*		NBITS			#BITS				|													SIGNEDORUNSIGNED
+--*		00				8						|													'0' (zx)	'1' (sx)
+--*		01				16					|		MUXOUTSIG[#BITS - 1]	--------	'1'			'0'
+--*		10				32					|													all '0'		all '1'	all '0'
+--*		others		32					|
 --*
 --******************************************************************************
 

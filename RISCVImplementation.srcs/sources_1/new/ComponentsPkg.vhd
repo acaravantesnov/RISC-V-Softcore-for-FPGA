@@ -40,7 +40,7 @@ package ComponentsPkg is
 		);
 	end component;
 
-  component Registers is
+  component RegisterFile is
     port(
       rs1:        in unsigned(4 downto 0);
       rs2:        in unsigned(4 downto 0);

@@ -42,9 +42,6 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal loadControlOut:    std_logic_vector(31 downto 0);
   signal comp:              std_logic_vector(2 downto 0);
 
-  -- insRegEn & ALUop & immSel & regWiteEn & wdSel & regImmSel &
-  -- jumpSel & branch & forceBranch & memWriteEn & ALUMemSel &
-  -- nbits & signedOrUnsigned
   signal microcode:         std_logic_vector(16 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
   signal PCEn:              std_logic;
@@ -129,7 +126,7 @@ begin
   with wdSel
     select writeData <= PCPlus4 when '0',
                         loadControlOut when others;
-  REGFILE_U: Registers
+  REGFILE_U: RegisterFile
     port map(
       rs1 => unsigned(inst(19 downto 15)),
       rs2 => unsigned(inst(24 downto 20)),
@@ -150,7 +147,7 @@ begin
       clock => clock,
       microcode => microcode
     );
-    
+
   COMP_U: Comparison
     port map(
       r1 => r1Sig,

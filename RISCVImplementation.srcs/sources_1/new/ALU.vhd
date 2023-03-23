@@ -3,7 +3,20 @@
 --* Name: ALU
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that given 2 32-bit inputs, it outputs the logical or arithmetic
+--* result of the operation required by the control input.
+--*
+--*		CONTROL	OPERATION	MEANING
+--*		0000		ADD				Add
+--*		1000		SUB				Substract
+--*		0001		SLL				Shift Left Logic
+--*		0010		SLT				Set Less Than
+--*		0011		SLTU			Set Less Than Unsigned
+--*		0100		XOR				Exclusive Or
+--*		0101		SRL				Shift Right Logic
+--*		1101		SRA				Shift Right Arithmetic
+--*		0110		Or				Or
+--*		0111		And				And
 --*
 --******************************************************************************
 

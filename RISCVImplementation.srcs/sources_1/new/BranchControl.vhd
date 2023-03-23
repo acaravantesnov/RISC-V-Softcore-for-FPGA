@@ -3,7 +3,14 @@
 --* Name: BranchControl
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that will activate PCSel depending on the branch and forceBranch
+--*	signals.
+--*
+--*	If the Control Unit states that the system needs to branch no matter what
+--* the zero value from the ALU is, it will activate the forceBranch signal, and
+--*	so the PCSel will be set to '1'.
+--*	On the other hand, if forceBranch is '0', this component will set PCSel to
+--*	'1' only if branch and zero signals are '1', '0' otherwise.
 --*
 --******************************************************************************
 

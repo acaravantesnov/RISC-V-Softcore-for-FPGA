@@ -3,7 +3,11 @@
 --* Name: InstructionMemory
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Component that given the memory address by the Program Counter, it outputs
+--*	the 32 bit instruction asynchronously.
+--*
+--*	256 bytes of byte addressable big endian memory. Instruction is made up of
+--*	the concatenation of the 4 consecutive bytes from the readAddress input.
 --*
 --******************************************************************************
 
