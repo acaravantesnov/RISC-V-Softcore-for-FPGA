@@ -1,2 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/acara/OneDrive/Escritorio/TFG/RISCVImplementation.srcs/sources_1/new/dataMemory.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'DataMemory'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/acara/OneDrive/Escritorio/TFG/RISCVImplementation.srcs/sources_1/new/InstructionMemory.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'InstructionMemory'
