@@ -1,4 +1,4 @@
---******************************************************************************
+--*****************************************************************************
 --*
 --* Name: ControlUnit
 --* Designer: Alberto Caravantes
@@ -8,7 +8,7 @@
 --*	Fetch-Decode-Execute cycle by setting up a custom microcode for each state.
 --*	Microcode is made up of 17 bits (Consult RISCV_CPU.vhd for more info.).
 --*
---******************************************************************************
+--*****************************************************************************
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -28,13 +28,23 @@ end ControlUnit;
 
 architecture ControlUnit_ARCH of ControlUnit is
 
-  ----state-machine-declarations---------------------------------------SIGNALS
+  ----state-machine-declarations----------------------------------------SIGNALS
   type States_t is (START, FETCH, DECODE, SAVE_TO_REG, SAVE_TO_MEM);
   signal currentState:  States_t;
   signal nextState:     States_t;
 
 begin
 
+	--====================================================================PROCESS
+	--
+	--	State Register
+	--
+	--	The State Register is in charge of the synchronous part of the FSM.
+	--	It changes the currentState into the nextState at each clock pulse.
+	--	If the reset input is active, it will just assign the currentState to
+	--	the START state.
+	--
+	--===========================================================================
   STATE_REGISTER: process(reset, clock)
   begin
     if (reset = '1') then
@@ -44,17 +54,30 @@ begin
     end if;
   end process STATE_REGISTER;
 
+	--====================================================================PROCESS
+	--
+	--	State Transition
+	--
+	--	The State Transition is in charge of the combinational part of the FSM.
+	--	It sets the outputs for each currentState, and assigns the nextState
+	--	according to the conditions set on the FSM diagram.
+	--
+	--===========================================================================
   STATE_TRANSITION: process(currentState, instruction, comparison)
   begin
 
     microcode <= (others => '0');
 
     case currentState is
+    	--------------------------------------------------------------------START
       when START =>
         nextState <= FETCH;
+      --------------------------------------------------------------------FETCH
       when FETCH =>
         microcode(15) <= '1';
+        microcode(9) <= '1';
         nextState <= DECODE;
+      -------------------------------------------------------------------DECODE
       when DECODE =>
         microcode <= decode(instruction, comparison);
         if  ((instruction(6 downto 0) = "0110011") or     -- R-type
@@ -67,11 +90,15 @@ begin
           microcode(16) <= '1';
           nextState <= FETCH;
         end if;
+      --------------------------------------------------------------SAVE_TO_REG
       when SAVE_TO_REG =>
+      	microcode <= decode(instruction, comparison);
         microcode(16) <= '1';
         microcode(10) <= '1';
         nextState <= FETCH;
+      --------------------------------------------------------------SAVE_TO_MEM
       when SAVE_TO_MEM =>
+      microcode <= decode(instruction, comparison);
         microcode(16) <= '1';
         microcode(4) <= '1';
         nextState <= FETCH;

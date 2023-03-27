@@ -3,7 +3,23 @@
 --* Name: RISCV_CPU
 --* Designer: Alberto Caravantes
 --*
---* 
+--* Single core RV32I embedded design implemented in VHDL.
+--*	32 32-bit registers. Total memory of 256kB. Byte addressable, big endian.
+--*	Made up of 13 different components:
+--*
+--*		-	Program Counter
+--*		-	Instruction Memory
+--*		-	Instruction Register
+--*		-	ALU Control								
+--*		-	Immediate Select
+--*		-	Register File
+--*		-	Control Unit
+--*		-	Comparison
+--*		-	ALU
+--*		-	Jump Control
+--*		- Branch Control
+--*		- Data Memory
+--*		- Load Control
 --*
 --******************************************************************************
 
@@ -21,8 +37,9 @@ entity RISCV_CPU is
 end RISCV_CPU;
 
 architecture RISCV_CPU_ARCH of RISCV_CPU is
-  
-  signal nextPC, currentPC: std_logic_vector(31 downto 0);
+
+  signal nextPC:						std_logic_vector(31 downto 0);
+  signal currentPC:					std_logic_vector(31 downto 0);
   signal newIns:            std_logic_vector(31 downto 0);
   signal PCPlus4:           std_logic_vector(31 downto 0);
   signal aux1:              std_logic_vector(9 downto 0);
@@ -31,7 +48,8 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal writeData:         std_logic_vector(31 downto 0);
   signal ALUControlSig:     std_logic_vector(3 downto 0);
   signal immValue:          std_logic_vector(31 downto 0);
-  signal r1Sig, r2Sig:      std_logic_vector(31 downto 0);
+  signal r1Sig:							std_logic_vector(31 downto 0);
+  signal r2Sig:      				std_logic_vector(31 downto 0);
   signal regOrImm:          std_logic_vector(31 downto 0);
   signal aux2:              std_logic_vector(31 downto 0);
   signal br:                std_logic_vector(31 downto 0);
@@ -84,13 +102,13 @@ begin
       clock => clock,
       currentAddress => currentPC
     );
-    
+
   INSMEM_U: InstructionMemory
     port map(
       readAddress => currentPC,
       instruction => newIns
     );
-  
+
   ADDALU_1_U: ALU
     port map(
       r1 => currentPC,
@@ -98,7 +116,7 @@ begin
       control => "0000",
       resultValue => PCPlus4
     );
-    
+
   INS_REG: singleRegister
     port map(
       input => newIns,
@@ -115,7 +133,7 @@ begin
       ALUOp => ALUOp,
       output => ALUControlSig
     );
-    
+
   IMMSEL_U: ImmSelect
     port map(
       input => inst,
@@ -124,8 +142,10 @@ begin
     );
 
   with wdSel
-    select writeData <= PCPlus4 when '0',
-                        loadControlOut when others;
+    select writeData <= PCPlus4					when '0',
+                        loadControlOut	when '1',
+                        (others => '0')	when others;
+
   REGFILE_U: RegisterFile
     port map(
       rs1 => unsigned(inst(19 downto 15)),
@@ -177,7 +197,7 @@ begin
       zero => zeroSig,
       resultValue => ALUResult
     );
-    
+
   JUMPC_U: JumpControl
     port map(
       jumpSel => jumpSel,
@@ -187,7 +207,7 @@ begin
       ALUresult => ALUresult,
       nextPC => nextPC
     );
-    
+
   BRANCHC_U: BranchControl
     port map(
       branch => branch,
@@ -201,6 +221,7 @@ begin
       memWriteEn => memWriteEn,
       address => ALUResult,
       dataIn => r2Sig,
+      reset => reset,
       clock => clock,
       dataOut => memOut
     );
@@ -209,7 +230,7 @@ begin
     select MUXOutSig <= memOut          when '0',
                         ALUResult       when '1',
                         (others => '0') when others;
-                        
+
   LOADC_U: LoadControl
     port map(
       MUXOutSig => MUXOutSig,

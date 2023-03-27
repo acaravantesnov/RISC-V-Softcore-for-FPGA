@@ -20,6 +20,7 @@ entity DataMemory is
     memWriteEn: in std_logic;
     address:    in std_logic_vector(31 downto 0);
     dataIn:     in std_logic_vector(31 downto 0);
+    reset:			in std_logic;
     clock:      in std_logic;
     dataOut:    out std_logic_vector(31 downto 0)
   );
@@ -28,7 +29,7 @@ end DataMemory;
 architecture DataMemory_ARCH of DataMemory is
 
   type ram_type is array(0 to (RAM_SIZE) - 1) of std_logic_vector(31 downto 0);
-  signal ram: ram_type;
+  signal ram: ram_type := (others => (others => '0'));
   signal readAddress: std_logic_vector(31 downto 0);
 
 begin

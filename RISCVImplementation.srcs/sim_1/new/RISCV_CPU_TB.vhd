@@ -39,10 +39,5 @@ begin
     reset <= '0';
     wait;
   end process SYS_RESET;
-  
-  RISCV_CPU_DRIVER: process
-  begin
-    wait;
-  end process;
 
 end RISCV_CPU_TB_ARCH;

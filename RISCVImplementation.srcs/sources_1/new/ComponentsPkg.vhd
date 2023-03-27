@@ -109,6 +109,7 @@ package ComponentsPkg is
       memWriteEn: in std_logic;
       address:    in std_logic_vector(31 downto 0);
       dataIn:     in std_logic_vector(31 downto 0);
+      reset:			in std_logic;
       clock:      in std_logic;
       dataOut:    out std_logic_vector(31 downto 0)
     );

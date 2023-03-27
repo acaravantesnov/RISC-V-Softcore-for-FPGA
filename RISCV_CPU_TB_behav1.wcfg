@@ -16,14 +16,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="355.647 ns"></ZoomEndTime>
-      <Cursor1Time time="129.768 ns"></Cursor1Time>
+      <ZoomEndTime time="408.526 ns"></ZoomEndTime>
+      <Cursor1Time time="195.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="148"></NameColumnWidth>
-      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+      <NameColumnWidth column_width="168"></NameColumnWidth>
+      <ValueColumnWidth column_width="81"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="21" />
    <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/instruction" type="array">
       <obj_property name="ElementShortName">instruction[31:0]</obj_property>
       <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
@@ -50,12 +50,77 @@
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
    </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/writeData" type="array">
-      <obj_property name="ElementShortName">writeData[31:0]</obj_property>
-      <obj_property name="ObjectShortName">writeData[31:0]</obj_property>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/INS_REG/output" type="array">
+      <obj_property name="ElementShortName">output[31:0]</obj_property>
+      <obj_property name="ObjectShortName">output[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/regWriteEn" type="logic">
-      <obj_property name="ElementShortName">regWriteEn</obj_property>
-      <obj_property name="ObjectShortName">regWriteEn</obj_property>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/rs1" type="array">
+      <obj_property name="ElementShortName">rs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rs1[4:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/rd" type="array">
+      <obj_property name="ElementShortName">rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALU_U/r1" type="array">
+      <obj_property name="ElementShortName">r1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r1[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALU_U/r2" type="array">
+      <obj_property name="ElementShortName">r2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r2[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALU_U/control" type="array">
+      <obj_property name="ElementShortName">control[3:0]</obj_property>
+      <obj_property name="ObjectShortName">control[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALU_U/resultValue" type="array">
+      <obj_property name="ElementShortName">resultValue[31:0]</obj_property>
+      <obj_property name="ObjectShortName">resultValue[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALUCONTR_U/input" type="array">
+      <obj_property name="ElementShortName">input[9:0]</obj_property>
+      <obj_property name="ObjectShortName">input[9:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALUCONTR_U/ALUop" type="array">
+      <obj_property name="ElementShortName">ALUop[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUop[1:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/ALUCONTR_U/output" type="array">
+      <obj_property name="ElementShortName">output[3:0]</obj_property>
+      <obj_property name="ObjectShortName">output[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/MEM_U/memWriteEn" type="logic">
+      <obj_property name="ElementShortName">memWriteEn</obj_property>
+      <obj_property name="ObjectShortName">memWriteEn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/MEM_U/address" type="array">
+      <obj_property name="ElementShortName">address[31:0]</obj_property>
+      <obj_property name="ObjectShortName">address[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/MEM_U/dataIn" type="array">
+      <obj_property name="ElementShortName">dataIn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataIn[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/MEM_U/dataOut" type="array">
+      <obj_property name="ElementShortName">dataOut[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataOut[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RISCV_CPU_TB/UUT/MEM_U/readAddress" type="array">
+      <obj_property name="ElementShortName">readAddress[31:0]</obj_property>
+      <obj_property name="ObjectShortName">readAddress[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>
