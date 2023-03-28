@@ -29,7 +29,7 @@ architecture ProgramCounter_ARCH of ProgramCounter is
 
 begin
 
-  PC_DRIVER: process(clock)
+  PC_DRIVER: process(clock, reset)
   begin
     if (reset = '1') then
       counter <= (others => '0');

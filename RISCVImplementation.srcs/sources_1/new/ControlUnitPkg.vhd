@@ -28,19 +28,21 @@ package body ControlUnitPkg is
       when "0110011" => microcode := "01100001100001100"; -- R-type
       when "0000011" => -- I-type Loads
         case instruction(14 downto 12) is
-          when "000" => microcode := "00000001000000001"; -- lb
-          when "001" => microcode := "00000001000000011"; -- lh
-          when "010" => microcode := "00000001000000101"; -- lw
-          when "100" => microcode := "00000001000000000"; -- lbu
-          when "101" => microcode := "00000001000000010"; -- lhu
+          when "000"	=> microcode := "00000001000000001"; -- lb
+          when "001"	=> microcode := "00000001000000011"; -- lh
+          when "010"	=> microcode := "00000001000000101"; -- lw
+          when "100"	=> microcode := "00000001000000000"; -- lbu
+          when "101"	=> microcode := "00000001000000010"; -- lhu
+          when others	=> microcode := (others => 'X');
         end case;
       when "1100111" => microcode := "00110000010000100"; -- I-type jalr
       when "0010011" => microcode := "00110001000001100"; -- I-type
       when "0100011" => -- S-type
         case instruction(14 downto 12) is
-          when "000" => microcode := "00001000000000100"; --sb
-          when "001" => microcode := "00001000000000100"; --sh
-          when "010" => microcode := "00001000000000100"; --sw
+          when "000"	=> microcode := "00001000000000100"; --sb
+          when "001"	=> microcode := "00001000000000100"; --sh
+          when "010"	=> microcode := "00001000000000100"; --sw
+          when others	=> microcode := (others => 'X');
         end case;
       when "1100011" => -- B-type
         case instruction(14 downto 12) is
@@ -70,7 +72,9 @@ package body ControlUnitPkg is
             else
               microcode := "00010100000000100"; 
             end if;
+        	when others	=> microcode := (others => 'X');
         end case;
+      when others	=> microcode := (others => 'X');
     end case;
     return (microcode);
   end function decode;

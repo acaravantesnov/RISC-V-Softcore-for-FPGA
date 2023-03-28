@@ -63,6 +63,7 @@ architecture ALUControl_ARCH of ALUControl is
       when "0100000101" => output := "1101"; -- sra
       when "0000000110" => output := "0110"; -- or
       when "0000000111" => output := "0111"; -- and
+      when others				=> output := "0000";
     end case;
     
     return (output);
@@ -83,7 +84,7 @@ architecture ALUControl_ARCH of ALUControl is
       when "0000000001" => output := "0001"; -- slli
       when "0000000101" => output := "0101"; -- srli
       when "0100000101" => output := "1101"; -- srai
-      
+      when others				=> output := "0000";
   	end case;
     
     return (output);
