@@ -41,7 +41,7 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal nextPC:						std_logic_vector(31 downto 0);
   signal currentPC:					std_logic_vector(31 downto 0);
   signal newIns:            std_logic_vector(31 downto 0);
-  signal PCPlus4:           std_logic_vector(31 downto 0);
+  signal PCPlus1:           std_logic_vector(31 downto 0);
   signal aux1:              std_logic_vector(9 downto 0);
   signal inst:              std_logic_vector(31 downto 0);
   signal MUXOutSig:         std_logic_vector(31 downto 0);
@@ -112,9 +112,9 @@ begin
   ADDALU_1_U: ALU
     port map(
       r1 => currentPC,
-      r2 => std_logic_vector(to_unsigned(4, 32)),
+      r2 => std_logic_vector(to_unsigned(1, 32)),
       control => "0000",
-      resultValue => PCPlus4
+      resultValue => PCPlus1
     );
 
   INS_REG: singleRegister
@@ -142,7 +142,7 @@ begin
     );
 
   with wdSel
-    select writeData <= PCPlus4					when '0',
+    select writeData <= PCPlus1					when '0',
                         loadControlOut	when '1',
                         (others => '0')	when others;
 
@@ -201,7 +201,7 @@ begin
   JUMPC_U: JumpControl
     port map(
       jumpSel => jumpSel,
-      PCPlus4 => PCPlus4,
+      PCPlus4 => PCPlus1,
       branch => br,
       PCSel => PCSel,
       ALUresult => ALUresult,

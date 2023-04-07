@@ -45,7 +45,7 @@ begin
 	--	the START state.
 	--
 	--===========================================================================
-  STATE_REGISTER: process(reset, clock)
+  STATE_REGISTER: process(reset, clock, instruction)
   begin
     if (reset = '1') then
       currentState <= START;
