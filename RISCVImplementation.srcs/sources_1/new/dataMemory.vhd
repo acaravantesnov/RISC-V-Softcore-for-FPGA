@@ -30,7 +30,6 @@ architecture DataMemory_ARCH of DataMemory is
 
   type ram_type is array(0 to (RAM_SIZE) - 1) of std_logic_vector(31 downto 0);
   signal ram: ram_type := (others => (others => '0'));
-  signal readAddress: std_logic_vector(31 downto 0);
 
 begin
 
@@ -41,11 +40,19 @@ begin
       if (memWriteEn = '1') then
         ram(to_integer(unsigned(address))) <= dataIn;
       end if;
-      readAddress <= address;
     end if;
   end process STORE;
 
+	
   -- Load: Read memory and update register.
-  dataOut <= ram(to_integer(unsigned(readAddress)));
+  LOAD: process(address)
+  begin
+  	if ((address >= std_logic_vector(to_unsigned(0, 32))) and
+  	(address <= std_logic_vector(to_unsigned(RAM_SIZE - 1, 32)))) then
+  		dataOut <= ram(to_integer(unsigned(address)));
+  	else
+  		dataOut <= (others => '0');
+  	end if;
+  end process LOAD;
 
 end architecture DataMemory_ARCH;

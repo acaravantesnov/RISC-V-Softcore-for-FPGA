@@ -84,6 +84,10 @@ begin
             (instruction(6 downto 0) = "0010011") or      -- I-type
             (instruction(6 downto 0) = "1100111")) then   -- I-type jalr
           nextState <= SAVE_TO_REG;
+        elsif (instruction(6 downto 0) = "0000011") then 	-- I-type loads
+        	microcode(16) <= '1';
+        	microcode(10) <= '1';
+        	nextState <= FETCH;
         elsif (instruction(6 downto 0) = "0100011") then  -- S-type
           nextState <= SAVE_TO_MEM;
         elsif (instruction(6 downto 0) = "1100011") then  -- B-type
