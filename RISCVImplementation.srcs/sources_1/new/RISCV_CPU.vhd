@@ -50,6 +50,7 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal immValue:          std_logic_vector(31 downto 0);
   signal r1Sig:							std_logic_vector(31 downto 0);
   signal r2Sig:      				std_logic_vector(31 downto 0);
+  signal dataIn:						std_logic_vector(31 downto 0);
   signal regOrImm:          std_logic_vector(31 downto 0);
   signal aux2:              std_logic_vector(31 downto 0);
   signal br:                std_logic_vector(31 downto 0);
@@ -197,6 +198,13 @@ begin
       zero => zeroSig,
       resultValue => ALUResult
     );
+    
+  STOREC_U: StoreControl
+  	port map(
+  		input => r2Sig,
+  		instruction => inst,
+  		output => dataIn
+  	);
 
   JUMPC_U: JumpControl
     port map(
@@ -220,7 +228,7 @@ begin
     port map(
       memWriteEn => memWriteEn,
       address => ALUResult,
-      dataIn => r2Sig,
+      dataIn => dataIn,
       reset => reset,
       clock => clock,
       dataOut => memOut

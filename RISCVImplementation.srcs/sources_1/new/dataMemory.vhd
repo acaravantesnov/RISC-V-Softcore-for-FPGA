@@ -14,7 +14,7 @@ use work.BasicPkg.all;
 
 entity DataMemory is
   generic(
-    RAM_SIZE:   integer := 2 ** 16
+    RAM_SIZE:   integer := 2 ** 12
   );
   port(
     memWriteEn: in std_logic;

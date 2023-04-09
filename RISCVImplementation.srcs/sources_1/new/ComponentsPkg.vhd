@@ -84,6 +84,14 @@ package ComponentsPkg is
     );
   end component;
   
+  component StoreControl is
+		port(
+			input:				in std_logic_vector(31 downto 0);
+			instruction:	in std_logic_vector(31 downto 0);
+			output:				out std_logic_vector(31 downto 0)
+		);
+	end component;
+  
   component JumpControl is
     port(
       jumpSel:    in  std_logic;
