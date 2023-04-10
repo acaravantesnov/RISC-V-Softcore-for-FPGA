@@ -67,7 +67,7 @@ package body ALUPkg is
                     r2: unsigned(31 downto 0))
                     return unsigned is
     variable sizeToShift: integer;
-    variable temp: unsigned(32 downto 0);
+    variable temp:				unsigned(32 downto 0);
   begin
     sizeToShift := to_integer(r2(4 downto 0));
     temp := '0' & shift_left(r1, sizeToShift);
@@ -103,8 +103,8 @@ package body ALUPkg is
   function srl_ins( r1: unsigned(31 downto 0);
                     r2: unsigned(31 downto 0))
                     return unsigned is
-    variable sizeToShift: integer;
-    variable temp: unsigned(32 downto 0);
+    variable sizeToShift:	integer;
+    variable temp:				unsigned(32 downto 0);
   begin
     sizeToShift := to_integer(r2(4 downto 0));
     temp := '0' & shift_right(r1, sizeToShift);
@@ -114,11 +114,14 @@ package body ALUPkg is
   function sra_ins( r1: unsigned(31 downto 0);
                     r2: unsigned(31 downto 0))
                     return unsigned is
-    variable sizeToShift: integer;
-    variable temp: unsigned(32 downto 0);
+    variable sizeToShift:	integer;
+    variable temp:				unsigned(32 downto 0);
+    variable MSBr1:				std_logic;
   begin
     sizeToShift := to_integer(r2(4 downto 0));
+    MSBr1 := r1(31);
     temp := '0' & shift_right(r1, sizeToShift);
+    temp(31 downto (31 - sizeToShift + 1)) := (others => MSBr1);
     return (temp);
   end function;
 
