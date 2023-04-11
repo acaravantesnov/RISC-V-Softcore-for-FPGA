@@ -21,7 +21,7 @@ use ieee.std_logic_textio.all;
 entity InstructionMemory is
   generic(
     INS_MEM_SIZE: integer := 2 ** 8;
-    TEXT_FILE:		string := "sra2.mem"
+    TEXT_FILE:		string := "beq2.mem"
   );
   port(
     readAddress: in std_logic_vector(31 downto 0);

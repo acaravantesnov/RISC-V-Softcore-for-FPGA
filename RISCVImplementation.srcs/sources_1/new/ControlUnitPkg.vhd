@@ -46,8 +46,18 @@ package body ControlUnitPkg is
         end case;
       when "1100011" => -- B-type
         case instruction(14 downto 12) is
-          when "000" => microcode := "00010100101000100"; -- beq
-          when "001" => microcode := "00010100101000100"; -- bne
+          when "000" => -- beq
+          	if (comparison = "000") then
+          		microcode := "00010100101100100";
+          	else
+          		microcode := "00010100101000100";
+          	end if;
+          when "001" => -- bne
+          	if (comparison = "000") then
+          		microcode := "00010100101000100";
+          	else
+          		microcode := "00010100101100100";
+          	end if;
           when "100" => -- blt
             if (comparison = "001") then
               microcode := "00010100000100100";

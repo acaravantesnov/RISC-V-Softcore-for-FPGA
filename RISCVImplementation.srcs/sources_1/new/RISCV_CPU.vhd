@@ -52,7 +52,6 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal r2Sig:      				std_logic_vector(31 downto 0);
   signal dataIn:						std_logic_vector(31 downto 0);
   signal regOrImm:          std_logic_vector(31 downto 0);
-  signal aux2:              std_logic_vector(31 downto 0);
   signal br:                std_logic_vector(31 downto 0);
   signal PCSel:             std_logic;
   signal zeroSig:           std_logic;
@@ -181,11 +180,10 @@ begin
                         r2Sig           when '1',
                         (others => '0') when others;
 
-  aux2 <= std_logic_vector(shift_left(unsigned(immValue), 1));
   ADDALU_2_U: ALU
     port map(
       r1 => currentPC,
-      r2 => aux2,
+      r2 => immValue,
       control => "0000",
       resultValue => br
     );
@@ -209,7 +207,7 @@ begin
   JUMPC_U: JumpControl
     port map(
       jumpSel => jumpSel,
-      PCPlus4 => PCPlus1,
+      PCPlus1 => PCPlus1,
       branch => br,
       PCSel => PCSel,
       ALUresult => ALUresult,
