@@ -15,13 +15,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="483.500 ns"></ZoomStartTime>
-      <ZoomEndTime time="562.601 ns"></ZoomEndTime>
-      <Cursor1Time time="525.000 ns"></Cursor1Time>
+      <ZoomStartTime time="492.703 ns"></ZoomStartTime>
+      <ZoomEndTime time="611.404 ns"></ZoomEndTime>
+      <Cursor1Time time="575.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="241"></NameColumnWidth>
-      <ValueColumnWidth column_width="118"></ValueColumnWidth>
+      <ValueColumnWidth column_width="108"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="15" />
    <wvobject fp_name="/RISCV_CPU_TB/UUT/PC_U/reset" type="logic">
@@ -129,11 +129,11 @@
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[30]" type="array">
             <obj_property name="ElementShortName">[30][31:0]</obj_property>
             <obj_property name="ObjectShortName">[30][31:0]</obj_property>
-            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[29]" type="array">
             <obj_property name="ElementShortName">[29][31:0]</obj_property>
             <obj_property name="ObjectShortName">[29][31:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[28]" type="array">
             <obj_property name="ElementShortName">[28][31:0]</obj_property>
@@ -174,7 +174,6 @@
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[19]" type="array">
             <obj_property name="ElementShortName">[19][31:0]</obj_property>
             <obj_property name="ObjectShortName">[19][31:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[18]" type="array">
             <obj_property name="ElementShortName">[18][31:0]</obj_property>
