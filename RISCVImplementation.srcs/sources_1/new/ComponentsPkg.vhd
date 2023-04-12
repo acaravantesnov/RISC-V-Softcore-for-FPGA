@@ -60,7 +60,7 @@ package ComponentsPkg is
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(16 downto 0)
+      microcode:    out std_logic_vector(15 downto 0)
     );
   end component;
   
@@ -77,7 +77,6 @@ package ComponentsPkg is
       r1:           in std_logic_vector(31 downto 0);
       r2:           in std_logic_vector(31 downto 0);
       control:      in std_logic_vector(3 downto 0);
-      zero:         out std_logic;
       cOut:         out std_logic;
       overflow:     out std_logic;
       resultValue:  out std_logic_vector(31 downto 0)
@@ -100,15 +99,6 @@ package ComponentsPkg is
       PCSel:      in  std_logic;
       ALUresult:  in  std_logic_vector(31 downto 0);
       nextPC:     out std_logic_vector(31 downto 0)
-    );
-  end component;
-  
-  component BranchControl is
-    port(
-      branch:       in  std_logic;
-      forceBranch:  in  std_logic;
-      zero:         in  std_logic;
-      PCSel:        out std_logic
     );
   end component;
 

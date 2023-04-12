@@ -17,7 +17,6 @@
 --*		-	Comparison
 --*		-	ALU
 --*		-	Jump Control
---*		- Branch Control
 --*		- Data Memory
 --*		- Load Control
 --*
@@ -53,14 +52,12 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal dataIn:						std_logic_vector(31 downto 0);
   signal regOrImm:          std_logic_vector(31 downto 0);
   signal br:                std_logic_vector(31 downto 0);
-  signal PCSel:             std_logic;
-  signal zeroSig:           std_logic;
   signal ALUResult:         std_logic_vector(31 downto 0);
   signal memOut:            std_logic_vector(31 downto 0);
   signal loadControlOut:    std_logic_vector(31 downto 0);
   signal comp:              std_logic_vector(2 downto 0);
 
-  signal microcode:         std_logic_vector(16 downto 0);
+  signal microcode:         std_logic_vector(15 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
   signal PCEn:              std_logic;
   signal insRegEn:          std_logic;
@@ -70,8 +67,7 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal wdSel:             std_logic;
   signal regImmSel:         std_logic;
   signal jumpSel:           std_logic;
-  signal branch:            std_logic;
-  signal forceBranch:       std_logic;
+	signal PCSel:							std_logic;
   signal memWriteEn:        std_logic;
   signal ALUMemSel:         std_logic;
   signal nBits:             std_logic_vector(1 downto 0);
@@ -79,16 +75,15 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
 
 begin
 
-  PCEn              <= microcode(16);
-  insRegEn          <= microcode(15);
-  ALUOp             <= microcode(14 downto 13);
-  immSel            <= microcode(12 downto 11);
-  regWriteEn        <= microcode(10);
-  wdSel             <= microcode(9);
-  regImmSel         <= microcode(8);
-  jumpSel           <= microcode(7);
-  branch            <= microcode(6);
-  forceBranch       <= microcode(5);
+  PCEn              <= microcode(15);
+  insRegEn          <= microcode(14);
+  ALUOp             <= microcode(13 downto 12);
+  immSel            <= microcode(11 downto 10);
+  regWriteEn        <= microcode(9);
+  wdSel             <= microcode(8);
+  regImmSel         <= microcode(7);
+  jumpSel           <= microcode(6);
+  PCSel       			<= microcode(5);
   memWriteEn        <= microcode(4);
   ALUMemSel         <= microcode(3);
   nBits             <= microcode(2 downto 1);
@@ -193,7 +188,6 @@ begin
       r1 => r1Sig,
       r2 => regOrImm,
       control => ALUControlSig,
-      zero => zeroSig,
       resultValue => ALUResult
     );
     
@@ -212,14 +206,6 @@ begin
       PCSel => PCSel,
       ALUresult => ALUresult,
       nextPC => nextPC
-    );
-
-  BRANCHC_U: BranchControl
-    port map(
-      branch => branch,
-      forceBranch => forceBranch,
-      zero => zeroSig,
-      PCSel => PCSel
     );
 
   MEM_U: DataMemory

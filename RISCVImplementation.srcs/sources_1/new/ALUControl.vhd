@@ -94,7 +94,7 @@ begin
 
   with ALUop
     select output <=  "0000"                    when "00", -- lw or sw
-                      "1000"                    when "01", -- beq
+                      "1000"                    when "01", -- B-type
                       R_type(input)             when "10", -- R-type
                       I_type(input)             when "11", -- I-type
                       (others => '0')           when others;
