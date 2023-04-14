@@ -20,7 +20,7 @@ use ieee.std_logic_textio.all;
 
 entity InstructionMemory is
   generic(
-    INS_MEM_SIZE: integer := 2 ** 8;
+    INS_MEM_SIZE: integer := 2 ** 10; -- 1024
     TEXT_FILE:		string := "srli.mem"
   );
   port(
@@ -31,7 +31,8 @@ end InstructionMemory;
 
 architecture InstructionMemory_ARCH of InstructionMemory is
 
-  type ram_type is array(0 to (INS_MEM_SIZE) - 1) of std_logic_vector(31 downto 0);
+	-- Big endian
+  type ram_type is array(0 to (INS_MEM_SIZE) - 1) of std_logic_vector(7 downto 0);
   signal ram: ram_type := (others => (others => '0'));
 
 begin
@@ -51,13 +52,19 @@ begin
 		while not endfile(input_file) loop
 			readline(input_file, input_line);
 			read(input_line, value);
-			ram(i) <= value;
-			i := i + 1;
+			ram(i) <= value(31 downto 24);
+			ram(i + 1) <= value(23 downto 16);
+			ram(i + 2) <= value(15 downto 8);
+			ram(i + 3) <= value(7 downto 0);
+			i := i + 4;
 		end loop;
 		wait;
 
 	end process;
 
-	instruction <=  ram(to_integer(unsigned(readAddress)));
+	instruction <=  ram(to_integer(unsigned(readAddress))) &
+									ram(to_integer(unsigned(readAddress)) + 1) &
+									ram(to_integer(unsigned(readAddress)) + 2) &
+									ram(to_integer(unsigned(readAddress)) + 3);
 
 end InstructionMemory_ARCH;

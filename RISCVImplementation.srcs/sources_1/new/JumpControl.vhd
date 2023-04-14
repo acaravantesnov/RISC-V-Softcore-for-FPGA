@@ -18,7 +18,7 @@ use ieee.std_logic_1164.all;
 entity JumpControl is
   port(
     jumpSel:    in  std_logic;
-    PCPlus1:    in  std_logic_vector(31 downto 0);
+    PCPlus4:    in  std_logic_vector(31 downto 0);
     branch:     in  std_logic_vector(31 downto 0);
     PCSel:      in  std_logic;
     ALUresult:  in  std_logic_vector(31 downto 0);
@@ -52,6 +52,6 @@ architecture JumpControl_ARCH of JumpControl is
 
 begin
 
-  nextPC <= sel(jumpSel, PCPlus1, branch, PCSel, ALUresult);
+  nextPC <= sel(jumpSel, PCPlus4, branch, PCSel, ALUresult);
 
 end JumpControl_ARCH;
