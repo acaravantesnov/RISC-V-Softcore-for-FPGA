@@ -165,6 +165,7 @@ begin
 
   COMP_U: Comparison
     port map(
+    	instruction => inst,
       r1 => r1Sig,
       r2 => r2Sig,
       comparison => comp

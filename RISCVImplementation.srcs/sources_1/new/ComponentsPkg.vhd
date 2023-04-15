@@ -66,9 +66,10 @@ package ComponentsPkg is
   
   component Comparison is
   port(
-    r1:         in std_logic_vector(31 downto 0);
-    r2:         in std_logic_vector(31 downto 0);
-    comparison: out std_logic_vector(2 downto 0)
+  	instruction:	in std_logic_vector(31 downto 0);
+    r1:         	in std_logic_vector(31 downto 0);
+    r2:         	in std_logic_vector(31 downto 0);
+    comparison: 	out std_logic_vector(2 downto 0)
   );
   end component;
     
