@@ -44,9 +44,9 @@ architecture LoadControl_ARCH of LoadControl is
     if (signedOrUnsigned = '0') then -- zx
       vector := (others => '0');
     elsif (signedOrUnsigned = '1') then -- sx
-      if (MUXOutSig(nOfBits - 1) = '1') then
+      if (MUXOutSig(31) = '1') then
         vector := (others => '1');
-      elsif (MUXOutSig(nOfBits - 1) = '0') then
+      elsif (MUXOutSig(31) = '0') then
         vector := (others => '0');
       end if;
     end if;
