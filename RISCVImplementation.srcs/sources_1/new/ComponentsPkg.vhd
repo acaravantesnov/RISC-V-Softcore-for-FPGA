@@ -60,7 +60,7 @@ package ComponentsPkg is
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(15 downto 0)
+      microcode:    out std_logic_vector(16 downto 0)
     );
   end component;
   
@@ -124,7 +124,7 @@ package ComponentsPkg is
   
   component ALUControl is
     port(
-      input:  in std_logic_vector(9 downto 0);
+      input:  in std_logic_vector(31 downto 0);
       ALUop:  in std_logic_vector(1 downto 0);
       output: out std_logic_vector(3 downto 0)
     );
@@ -133,8 +133,10 @@ package ComponentsPkg is
   component LoadControl is
     port(
       MUXOutSig:        in  std_logic_vector(31 downto 0);
+      br:								in	std_logic_vector(31 downto 0);
       nBits:            in  std_logic_vector(1 downto 0);
       signedOrUnsigned: in  std_logic;
+      auipc:						in	std_logic;
       LoadControl:      out std_logic_vector(31 downto 0)
     );
   end component;

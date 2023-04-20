@@ -22,7 +22,7 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(15 downto 0)
+    microcode:    out std_logic_vector(16 downto 0)
   );
 end ControlUnit;
 
@@ -82,9 +82,11 @@ begin
         microcode <= decode(instruction, comparison);
         if  ((instruction(6 downto 0) = "0110011") or     -- R-type
             (instruction(6 downto 0) = "0010011") or      -- I-type
-            (instruction(6 downto 0) = "1100111")) then   -- I-type jalr
+            (instruction(6 downto 0) = "1100111") or
+            (instruction(6 downto 0) = "0010111")) then		-- U-type auipc
           nextState <= SAVE_TO_REG;
-        elsif (instruction(6 downto 0) = "0000011") then 	-- I-type loads
+        elsif ((instruction(6 downto 0) = "0000011") or		-- I-type loads
+        			(instruction(6 downto 0) = "0110111")) then	-- U-type lui
         	microcode(15) <= '1';
         	microcode(9) <= '1';
         	nextState <= FETCH;

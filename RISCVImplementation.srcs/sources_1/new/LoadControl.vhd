@@ -24,9 +24,11 @@ use ieee.numeric_std.all;
 entity LoadControl is
   port(
     MUXOutSig:        in  std_logic_vector(31 downto 0);
-    nBits:            in  std_logic_vector(1 downto 0);
-    signedOrUnsigned: in  std_logic;
-    LoadControl:      out std_logic_vector(31 downto 0)
+		br:								in	std_logic_vector(31 downto 0);
+		nBits:            in  std_logic_vector(1 downto 0);
+		signedOrUnsigned: in  std_logic;
+		auipc:						in	std_logic;
+		LoadControl:      out std_logic_vector(31 downto 0)
   );
 end LoadControl;
 
@@ -35,12 +37,18 @@ architecture LoadControl_ARCH of LoadControl is
   signal nOfBits: natural;
 
   function loadft(  MUXOutSig:        std_logic_vector(31 downto 0);
+  									br:								std_logic_vector(31 downto 0);
                     nOfBits:          natural;
-                    signedOrUnsigned: std_logic)
+                    signedOrUnsigned: std_logic;
+                    auipc:						std_logic)
                     return std_logic_vector is
     variable vector:  std_logic_vector(31 downto 0);
   begin
 
+		if (auipc = '1') then
+			vector := br;
+			return (vector);
+		end if;
     if (signedOrUnsigned = '0') then -- zx
       vector := (others => '0');
     elsif (signedOrUnsigned = '1') then -- sx
@@ -63,6 +71,6 @@ begin
                       32 when "10",
                       32 when others;
 
-  LoadControl <= loadft(MUXOutSig, nOfBits, signedOrUnsigned);
+  LoadControl <= loadft(MUXOutSig, br, nOfBits, signedOrUnsigned, auipc);
 
 end LoadControl_ARCH;

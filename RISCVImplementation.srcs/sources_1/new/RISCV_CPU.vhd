@@ -57,8 +57,9 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal loadControlOut:    std_logic_vector(31 downto 0);
   signal comp:              std_logic_vector(2 downto 0);
 
-  signal microcode:         std_logic_vector(15 downto 0);
+  signal microcode:         std_logic_vector(16 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
+  signal auipc:							std_logic;
   signal PCEn:              std_logic;
   signal insRegEn:          std_logic;
   signal ALUOp:             std_logic_vector(1 downto 0);
@@ -75,6 +76,7 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
 
 begin
 
+	auipc							<= microcode(16);
   PCEn              <= microcode(15);
   insRegEn          <= microcode(14);
   ALUOp             <= microcode(13 downto 12);
@@ -121,10 +123,9 @@ begin
       output => inst
     );
 
-  aux1 <= inst(31 downto 25) & inst(14 downto 12);
   ALUCONTR_U: ALUControl
     port map(
-      input => aux1,
+      input => inst,
       ALUOp => ALUOp,
       output => ALUControlSig
     );
@@ -227,8 +228,10 @@ begin
   LOADC_U: LoadControl
     port map(
       MUXOutSig => MUXOutSig,
+      br => br,
       nBits => nBits,
       signedOrUnsigned => signedOrUnsigned,
+      auipc => auipc,
       LoadControl => LoadControlOut
     );
 

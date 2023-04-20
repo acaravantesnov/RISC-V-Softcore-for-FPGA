@@ -20,6 +20,9 @@ package ImmSelectPkg is
                     
   function S_type(  input: std_logic_vector(31 downto 0))
                     return std_logic_vector;
+                    
+  function U_type(  input: std_logic_vector(31 downto 0))
+                    return std_logic_vector;
 
 end package;
 
@@ -51,6 +54,14 @@ package body ImmSelectPkg is
     ImmValue(11 downto 5) := input(31 downto 25);
     ImmValue(4 downto 0) := input(11 downto 7);
     return (ImmValue);
+  end function;
+  
+  function U_type(  input: std_logic_vector(31 downto 0))
+                    return std_logic_vector is
+    variable ImmValue: std_logic_vector(31 downto 0) := (others => '0');
+  begin
+    ImmValue(31 downto 12) := input(31 downto 12);
+    return ImmValue;
   end function;
 
 end package body;

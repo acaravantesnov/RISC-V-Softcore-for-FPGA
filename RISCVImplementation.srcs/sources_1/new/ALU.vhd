@@ -54,6 +54,7 @@ begin
                       std_logic_vector(sra_ins(unsigned(r1), unsigned(r2)))   when "1101", -- sra
                       ('0' & (r1 or r2))                                      when "0110", -- or
                       ('0' & (r1 and r2))                                     when "0111", -- and
+                      ('0' & r2)																							when "1111", -- lui
                       (others => '1')                                         when others;
   resultValue <= result(31 downto 0);
   cOut <= result(32);

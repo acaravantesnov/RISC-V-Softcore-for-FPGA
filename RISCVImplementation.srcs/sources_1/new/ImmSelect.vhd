@@ -35,6 +35,7 @@ begin
     select output <=  I_type(input) when "00", -- I-type
                       B_type(input) when "01", -- B-type
                       S_type(input) when "10", -- S-type
+                      U_type(input) when "11", -- U-type
                       (others => '0') when others;
 
 end ImmSelect_ARCH;
