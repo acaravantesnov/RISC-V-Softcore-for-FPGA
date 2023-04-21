@@ -18,7 +18,7 @@ Compiling package work.alupkg
 Compiling package work.immselectpkg
 Compiling package work.controlunitpkg
 Compiling architecture programcounter_arch of entity xil_defaultlib.ProgramCounter [programcounter_default]
-Compiling architecture instructionmemory_arch of entity xil_defaultlib.InstructionMemory [\InstructionMemory(1,9)\]
+Compiling architecture instructionmemory_arch of entity xil_defaultlib.InstructionMemory [\InstructionMemory(1,7)\]
 Compiling architecture alu_arch of entity xil_defaultlib.ALU [alu_default]
 Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [singleregister_default]
 Compiling architecture alucontrol_arch of entity xil_defaultlib.ALUControl [alucontrol_default]

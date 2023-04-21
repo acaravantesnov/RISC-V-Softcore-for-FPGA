@@ -60,7 +60,7 @@ package ComponentsPkg is
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(16 downto 0)
+      microcode:    out std_logic_vector(17 downto 0)
     );
   end component;
   
@@ -117,7 +117,7 @@ package ComponentsPkg is
   component ImmSelect is
     port (
       input:  in std_logic_vector(31 downto 0);
-      immSel: in std_logic_vector(1 downto 0);
+      immSel: in std_logic_vector(2 downto 0);
       output: out std_logic_vector(31 downto 0)
     );
   end component;

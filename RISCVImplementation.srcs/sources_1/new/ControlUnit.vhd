@@ -22,7 +22,7 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(16 downto 0)
+    microcode:    out std_logic_vector(17 downto 0)
   );
 end ControlUnit;
 
@@ -74,7 +74,7 @@ begin
         nextState <= FETCH;
       --------------------------------------------------------------------FETCH
       when FETCH =>
-        microcode(14) <= '1';
+        microcode(15) <= '1';
         microcode(8) <= '1';
         nextState <= DECODE;
       -------------------------------------------------------------------DECODE
@@ -82,30 +82,31 @@ begin
         microcode <= decode(instruction, comparison);
         if  ((instruction(6 downto 0) = "0110011") or     -- R-type
             (instruction(6 downto 0) = "0010011") or      -- I-type
-            (instruction(6 downto 0) = "1100111") or
+            (instruction(6 downto 0) = "1100111") or			-- I-type jalr
+            (instruction(6 downto 0) = "1101111") or			-- J-type (jal)
             (instruction(6 downto 0) = "0010111")) then		-- U-type auipc
           nextState <= SAVE_TO_REG;
         elsif ((instruction(6 downto 0) = "0000011") or		-- I-type loads
         			(instruction(6 downto 0) = "0110111")) then	-- U-type lui
-        	microcode(15) <= '1';
+        	microcode(16) <= '1';
         	microcode(9) <= '1';
         	nextState <= FETCH;
         elsif (instruction(6 downto 0) = "0100011") then  -- S-type
           nextState <= SAVE_TO_MEM;
         elsif (instruction(6 downto 0) = "1100011") then  -- B-type
-          microcode(15) <= '1';
+          microcode(16) <= '1';
           nextState <= FETCH;
         end if;
       --------------------------------------------------------------SAVE_TO_REG
       when SAVE_TO_REG =>
       	microcode <= decode(instruction, comparison);
-        microcode(15) <= '1';
+        microcode(16) <= '1';
         microcode(9) <= '1';
         nextState <= FETCH;
       --------------------------------------------------------------SAVE_TO_MEM
       when SAVE_TO_MEM =>
       microcode <= decode(instruction, comparison);
-        microcode(15) <= '1';
+        microcode(16) <= '1';
         microcode(4) <= '1';
         nextState <= FETCH;
     end case;

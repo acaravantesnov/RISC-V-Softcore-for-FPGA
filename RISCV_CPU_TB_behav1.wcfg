@@ -15,12 +15,12 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="160.820 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,760.821 ns"></ZoomEndTime>
-      <Cursor1Time time="1,520.820 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,600.000 ns"></ZoomEndTime>
+      <Cursor1Time time="669.425 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="164"></NameColumnWidth>
+      <NameColumnWidth column_width="159"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="14" />
@@ -66,8 +66,8 @@
          <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/microcode" type="array">
-         <obj_property name="ElementShortName">microcode[16:0]</obj_property>
-         <obj_property name="ObjectShortName">microcode[16:0]</obj_property>
+         <obj_property name="ElementShortName">microcode[17:0]</obj_property>
+         <obj_property name="ObjectShortName">microcode[17:0]</obj_property>
          <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_CPU_TB/UUT/CU_U/currentState" type="other">
@@ -157,6 +157,7 @@
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[23]" type="array">
             <obj_property name="ElementShortName">[23][31:0]</obj_property>
             <obj_property name="ObjectShortName">[23][31:0]</obj_property>
+            <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[22]" type="array">
             <obj_property name="ElementShortName">[22][31:0]</obj_property>
@@ -213,7 +214,6 @@
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[9]" type="array">
             <obj_property name="ElementShortName">[9][31:0]</obj_property>
             <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-            <obj_property name="Radix">BINARYRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/RISCV_CPU_TB/UUT/REGFILE_U/r_Output[8]" type="array">
             <obj_property name="ElementShortName">[8][31:0]</obj_property>
@@ -465,8 +465,8 @@
          <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_CPU_TB/UUT/IMMSEL_U/immSel" type="array">
-         <obj_property name="ElementShortName">immSel[1:0]</obj_property>
-         <obj_property name="ObjectShortName">immSel[1:0]</obj_property>
+         <obj_property name="ElementShortName">immSel[2:0]</obj_property>
+         <obj_property name="ObjectShortName">immSel[2:0]</obj_property>
          <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/RISCV_CPU_TB/UUT/IMMSEL_U/output" type="array">
