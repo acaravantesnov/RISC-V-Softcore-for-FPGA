@@ -56,6 +56,10 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal memOut:            std_logic_vector(31 downto 0);
   signal loadControlOut:    std_logic_vector(31 downto 0);
   signal comp:              std_logic_vector(2 downto 0);
+  signal mcauseIn:					std_logic_vector(3 downto 0);
+  signal mcause:						std_logic_vector(3 downto 0);
+  
+  signal exceptionSig:			std_logic;
 
   signal microcode:         std_logic_vector(17 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
@@ -97,6 +101,7 @@ begin
       PCEn => PCEn,
       reset => reset,
       clock => clock,
+      exception => exceptionSig,
       currentAddress => currentPC
     );
 
@@ -114,7 +119,10 @@ begin
       resultValue => PCPlus4
     );
 
-  INS_REG: singleRegister
+  INSREG_U: singleRegister
+  	generic map(
+  		REGSIZE => 32
+  	)
     port map(
       input => newIns,
       writeEn => insRegEn,
@@ -161,7 +169,9 @@ begin
       comparison => comp,
       reset => reset,
       clock => clock,
-      microcode => microcode
+      microcode => microcode,
+      mcause => mcauseIn,
+      exceptionSig => exceptionSig
     );
 
   COMP_U: Comparison
@@ -198,6 +208,18 @@ begin
   		input => r2Sig,
   		instruction => inst,
   		output => dataIn
+  	);
+
+  MCAUSEREG_U: singleRegister
+  	generic map(
+  		REGSIZE => 4
+  	)
+  	port map(
+  		input => mcauseIn,
+  		writeEn => '1',
+  		reset => reset,
+  		clock => clock,
+  		output => mcause
   	);
 
   JUMPC_U: JumpControl

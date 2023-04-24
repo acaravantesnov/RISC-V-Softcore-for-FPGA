@@ -18,15 +18,16 @@ Compiling package work.alupkg
 Compiling package work.immselectpkg
 Compiling package work.controlunitpkg
 Compiling architecture programcounter_arch of entity xil_defaultlib.ProgramCounter [programcounter_default]
-Compiling architecture instructionmemory_arch of entity xil_defaultlib.InstructionMemory [\InstructionMemory(1,7)\]
+Compiling architecture instructionmemory_arch of entity xil_defaultlib.InstructionMemory [\InstructionMemory(1,15)\]
 Compiling architecture alu_arch of entity xil_defaultlib.ALU [alu_default]
-Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [singleregister_default]
+Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [\singleRegister(regsize=32)\]
 Compiling architecture alucontrol_arch of entity xil_defaultlib.ALUControl [alucontrol_default]
 Compiling architecture immselect_arch of entity xil_defaultlib.ImmSelect [immselect_default]
 Compiling architecture registerfile_arch of entity xil_defaultlib.RegisterFile [registerfile_default]
 Compiling architecture controlunit_arch of entity xil_defaultlib.ControlUnit [controlunit_default]
 Compiling architecture comparison_arch of entity xil_defaultlib.Comparison [comparison_default]
 Compiling architecture storecontrol_arch of entity xil_defaultlib.StoreControl [storecontrol_default]
+Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [\singleRegister(regsize=4)\]
 Compiling architecture jumpcontrol_arch of entity xil_defaultlib.JumpControl [jumpcontrol_default]
 Compiling architecture datamemory_arch of entity xil_defaultlib.DataMemory [datamemory_default]
 Compiling architecture loadcontrol_arch of entity xil_defaultlib.LoadControl [loadcontrol_default]

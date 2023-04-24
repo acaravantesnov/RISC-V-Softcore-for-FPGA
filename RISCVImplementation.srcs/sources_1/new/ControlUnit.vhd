@@ -22,7 +22,9 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(17 downto 0)
+    microcode:    out std_logic_vector(17 downto 0);
+    mcause:				out std_logic_vector(3 downto 0);
+    exceptionSig:	out std_logic
   );
 end ControlUnit;
 
@@ -34,6 +36,26 @@ architecture ControlUnit_ARCH of ControlUnit is
   signal nextState:     States_t;
 
 begin
+
+	exceptionSig <= '0';
+	mcause <= (others => '0');
+
+	EXCEPTION_HANDLER: process(instruction)
+	begin
+		if ((instruction(6 downto 0) /= "0110111") and		-- U-type lui
+				(instruction(6 downto 0) /= "0010111") and		-- U-type auipc
+				(instruction(6 downto 0) /= "1101111") and		-- J-type jal
+				(instruction(6 downto 0) /= "1100111") and		-- I-type jalr
+				(instruction(6 downto 0) /= "1100011") and		-- B-type
+				(instruction(6 downto 0) /= "0000011") and		-- I-type loads
+				(instruction(6 downto 0) /= "0100011") and		-- S-type
+				(instruction(6 downto 0) /= "0010011") and		-- I-type
+				(instruction(6 downto 0) /= "0110011") and		-- R-type
+				(instruction(6 downto 0) /= "0000000")) then	-- To be determined
+			exceptionSig <= '1';
+			mcause <= (1 => '1', others => '0');
+		end if;
+	end process EXCEPTION_HANDLER;
 
 	--====================================================================PROCESS
 	--
@@ -76,6 +98,7 @@ begin
       when FETCH =>
         microcode(15) <= '1';
         microcode(8) <= '1';
+        exceptionSig <= '0';
         nextState <= DECODE;
       -------------------------------------------------------------------DECODE
       when DECODE =>
@@ -105,7 +128,7 @@ begin
         nextState <= FETCH;
       --------------------------------------------------------------SAVE_TO_MEM
       when SAVE_TO_MEM =>
-      microcode <= decode(instruction, comparison);
+      	microcode <= decode(instruction, comparison);
         microcode(16) <= '1';
         microcode(4) <= '1';
         nextState <= FETCH;

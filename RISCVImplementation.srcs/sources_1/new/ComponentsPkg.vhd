@@ -19,6 +19,7 @@ package ComponentsPkg is
       PCEn:           in std_logic;
       reset:          in std_logic;
       clock:          in std_logic;
+      exception:			in std_logic;
       currentAddress: out std_logic_vector(31 downto 0)
     );
   end component;
@@ -31,12 +32,15 @@ package ComponentsPkg is
   end component;
   
   component singleRegister is
+  	generic(
+			REGSIZE: natural
+		);
 		port(
-			input:   in std_logic_vector(31 downto 0);
+			input:   in std_logic_vector(REGSIZE - 1 downto 0);
 			writeEn: in std_logic;
 			reset:   in std_logic;
 			clock:   in std_logic;
-			output:  out std_logic_vector(31 downto 0)
+			output:  out std_logic_vector(REGSIZE - 1 downto 0)
 		);
 	end component;
 
@@ -53,14 +57,16 @@ package ComponentsPkg is
       r2:         out std_logic_vector(31 downto 0)
      );
   end component;
-  
+
   component ControlUnit is
     port(
       instruction:  in  std_logic_vector(31 downto 0);
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(17 downto 0)
+      microcode:    out std_logic_vector(17 downto 0);
+      mcause:				out std_logic_vector(3 downto 0);
+      exceptionSig:	out std_logic
     );
   end component;
   

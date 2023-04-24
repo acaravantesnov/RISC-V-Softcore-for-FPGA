@@ -54,6 +54,9 @@ architecture RegisterFile_ARCH of RegisterFile is
 	signal r_Output: t_Output;
 
 	component singleRegister is
+		generic(
+  		REGSIZE: natural
+  	);
 		port(
 			input:      in std_logic_vector(31 downto 0);
 			writeEn:    in std_logic;
@@ -67,6 +70,9 @@ begin
 
   GENERATE_32_REGISTERS: for i in 0 to 31 generate
 		REGX: singleRegister
+			generic map(
+				REGSIZE => 32
+			)
 		  port map(
 		    input => r_Input(i),
 		    writeEn => r_WriteEn(i),

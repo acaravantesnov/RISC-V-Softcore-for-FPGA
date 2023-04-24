@@ -13,12 +13,15 @@ use ieee.numeric_std.all;
 use work.BasicPkg.all;
 
 entity singleRegister is
+	generic(
+		REGSIZE: natural
+	);
   port(
-    input:      in std_logic_vector(31 downto 0);
+    input:      in std_logic_vector(REGSIZE - 1 downto 0);
     writeEn:    in std_logic;
     clock:      in std_logic;
     reset:      in std_logic;
-    output:     out std_logic_vector(31 downto 0)
+    output:     out std_logic_vector(REGSIZE - 1 downto 0)
   );
 end singleRegister;
 
