@@ -4,33 +4,4 @@ Running: C:/Xilinx/Vivado/2022.2/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
-Starting simulation data flow analysis
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling package std.standard
-Compiling package std.textio
-Compiling package ieee.std_logic_1164
-Compiling package ieee.numeric_std
-Compiling package work.basicpkg
-Compiling package work.componentspkg
-Compiling package ieee.std_logic_textio
-Compiling package work.alupkg
-Compiling package work.immselectpkg
-Compiling package work.controlunitpkg
-Compiling architecture programcounter_arch of entity xil_defaultlib.ProgramCounter [programcounter_default]
-Compiling architecture instructionmemory_arch of entity xil_defaultlib.InstructionMemory [\InstructionMemory(1,15)\]
-Compiling architecture alu_arch of entity xil_defaultlib.ALU [alu_default]
-Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [\singleRegister(regsize=32)\]
-Compiling architecture alucontrol_arch of entity xil_defaultlib.ALUControl [alucontrol_default]
-Compiling architecture immselect_arch of entity xil_defaultlib.ImmSelect [immselect_default]
-Compiling architecture registerfile_arch of entity xil_defaultlib.RegisterFile [registerfile_default]
-Compiling architecture controlunit_arch of entity xil_defaultlib.ControlUnit [controlunit_default]
-Compiling architecture comparison_arch of entity xil_defaultlib.Comparison [comparison_default]
-Compiling architecture storecontrol_arch of entity xil_defaultlib.StoreControl [storecontrol_default]
-Compiling architecture singleregister_arch of entity xil_defaultlib.singleRegister [\singleRegister(regsize=4)\]
-Compiling architecture jumpcontrol_arch of entity xil_defaultlib.JumpControl [jumpcontrol_default]
-Compiling architecture datamemory_arch of entity xil_defaultlib.DataMemory [datamemory_default]
-Compiling architecture loadcontrol_arch of entity xil_defaultlib.LoadControl [loadcontrol_default]
-Compiling architecture riscv_cpu_arch of entity xil_defaultlib.RISCV_CPU [riscv_cpu_default]
-Compiling architecture riscv_cpu_tb_arch of entity xil_defaultlib.riscv_cpu_tb
-Built simulation snapshot RISCV_CPU_TB_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

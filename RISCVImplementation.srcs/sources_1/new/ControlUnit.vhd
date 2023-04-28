@@ -40,22 +40,22 @@ begin
 	exceptionSig <= '0';
 	mcause <= (others => '0');
 
-	EXCEPTION_HANDLER: process(instruction)
-	begin
-		if ((instruction(6 downto 0) /= "0110111") and		-- U-type lui
-				(instruction(6 downto 0) /= "0010111") and		-- U-type auipc
-				(instruction(6 downto 0) /= "1101111") and		-- J-type jal
-				(instruction(6 downto 0) /= "1100111") and		-- I-type jalr
-				(instruction(6 downto 0) /= "1100011") and		-- B-type
-				(instruction(6 downto 0) /= "0000011") and		-- I-type loads
-				(instruction(6 downto 0) /= "0100011") and		-- S-type
-				(instruction(6 downto 0) /= "0010011") and		-- I-type
-				(instruction(6 downto 0) /= "0110011") and		-- R-type
-				(instruction(6 downto 0) /= "0000000")) then	-- To be determined
-			exceptionSig <= '1';
-			mcause <= (1 => '1', others => '0');
-		end if;
-	end process EXCEPTION_HANDLER;
+	--EXCEPTION_HANDLER: process(instruction)
+	--begin
+		--if ((instruction(6 downto 0) /= "0110111") and		-- U-type lui
+				--(instruction(6 downto 0) /= "0010111") and		-- U-type auipc
+				--(instruction(6 downto 0) /= "1101111") and		-- J-type jal
+				--(instruction(6 downto 0) /= "1100111") and		-- I-type jalr
+				--(instruction(6 downto 0) /= "1100011") and		-- B-type
+				--(instruction(6 downto 0) /= "0000011") and		-- I-type loads
+				--(instruction(6 downto 0) /= "0100011") and		-- S-type
+				--(instruction(6 downto 0) /= "0010011") and		-- I-type
+				--(instruction(6 downto 0) /= "0110011") and		-- R-type
+				--(instruction(6 downto 0) /= "0000000")) then	-- To be determined
+			--exceptionSig <= '1';
+			--mcause <= (1 => '1', others => '0');
+		--end if;
+	--end process EXCEPTION_HANDLER;
 
 	--====================================================================PROCESS
 	--

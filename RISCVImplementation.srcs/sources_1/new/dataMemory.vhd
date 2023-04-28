@@ -17,8 +17,8 @@ entity DataMemory is
     RAM_SIZE:   integer := 2 ** 12
   );
   port(
-    memWriteEn: in std_logic;
-    address:    in std_logic_vector(31 downto 0);
+    writeEn: 		in std_logic;
+    address:    in std_logic_vector(11 downto 0);
     dataIn:     in std_logic_vector(31 downto 0);
     reset:			in std_logic;
     clock:      in std_logic;
@@ -36,8 +36,10 @@ begin
   -- Store: Write register value to memory.
   STORE: process(clock)
   begin
-    if (rising_edge(clock)) then
-      if (memWriteEn = '1') then
+  	if (reset = '1') then
+  		ram <= (others => (others => '0'));
+    elsif (rising_edge(clock)) then
+      if (writeEn = '1') then
         ram(to_integer(unsigned(address))) <= dataIn;
       end if;
     end if;
@@ -47,8 +49,8 @@ begin
   -- Load: Read memory and update register.
   LOAD: process(address)
   begin
-  	if ((address >= std_logic_vector(to_unsigned(0, 32))) and
-  	(address <= std_logic_vector(to_unsigned(RAM_SIZE - 1, 32)))) then
+  	if ((to_integer(unsigned(address)) >= 0) and
+  	(to_integer(unsigned(address)) <= (RAM_SIZE - 1))) then
   		dataOut <= ram(to_integer(unsigned(address)));
   	else
   		dataOut <= (others => '0');

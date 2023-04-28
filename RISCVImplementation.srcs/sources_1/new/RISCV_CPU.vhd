@@ -30,8 +30,10 @@ use work.ComponentsPkg.all;
 
 entity RISCV_CPU is
   port(
-    clock:      in std_logic;
-    reset:      in std_logic
+    clock:      in 	std_logic;
+    reset:      in 	std_logic;
+    outputSel:	in 	std_logic_vector(3 downto 0);
+    GPIOOut:		out std_logic_vector(31 downto 0)
   );
 end RISCV_CPU;
 
@@ -58,6 +60,8 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal comp:              std_logic_vector(2 downto 0);
   signal mcauseIn:					std_logic_vector(3 downto 0);
   signal mcause:						std_logic_vector(3 downto 0);
+  signal dataEn:						std_logic;
+  signal GPIOEn:						std_logic;
   
   signal exceptionSig:			std_logic;
 
@@ -232,15 +236,28 @@ begin
       nextPC => nextPC
     );
 
+	dataEn <= memWriteEn and (not ALUresult(12));
   MEM_U: DataMemory
     port map(
-      memWriteEn => memWriteEn,
-      address => ALUResult,
+      writeEn => dataEn,
+      address => ALUResult(11 downto 0),
       dataIn => dataIn,
       reset => reset,
       clock => clock,
       dataOut => memOut
     );
+    
+  GPIOEn <= memWriteEn and ALUresult(12);
+  GPIO_U: GPIO
+  	port map(
+  		writeEn => GPIOEn,
+  		address => ALUresult(3 downto 0),
+  		dataIn => dataIn,
+  		outputSel => outputSel,
+  		reset => reset,
+  		clock => clock,
+  		dataOut => GPIOOut
+  	);
 
   with ALUMemSel
     select MUXOutSig <= memOut          when '0',
