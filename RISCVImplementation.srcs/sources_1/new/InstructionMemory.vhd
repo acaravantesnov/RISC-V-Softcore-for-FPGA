@@ -48,7 +48,14 @@ begin
 
 		file_open(input_file, TEXT_FILE, read_mode);
 
-		i:= 0;
+		---- Address 0 to 3: jal to address {x}
+		--ram(0) <= "";
+		--ram(1) <= "";
+		--ram(2) <= "";
+		--ram(3) <= "";
+
+		--i:= 4;
+		i := 0;
 		while not endfile(input_file) loop
 			readline(input_file, input_line);
 			read(input_line, value);
