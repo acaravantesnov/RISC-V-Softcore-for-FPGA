@@ -19,7 +19,6 @@ package ComponentsPkg is
       PCEn:           in std_logic;
       reset:          in std_logic;
       clock:          in std_logic;
-      exception:			in std_logic;
       currentAddress: out std_logic_vector(31 downto 0)
     );
   end component;
@@ -57,6 +56,18 @@ package ComponentsPkg is
       r2:         out std_logic_vector(31 downto 0)
      );
   end component;
+  
+  component CSRs is
+		port(
+			input:			in	std_logic_vector(31 downto 0);
+			CSRWriteEn: in	std_logic;
+			atomicOpt:	in	std_logic_vector(1 downto 0);
+			CSRSel:			in	natural;
+			clock:			in	std_logic;
+			reset:			in	std_logic;
+			output:			out std_logic_vector(31 downto 0)
+		);
+	end component;
 
   component ControlUnit is
     port(
@@ -64,9 +75,7 @@ package ComponentsPkg is
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(17 downto 0);
-      mcause:				out std_logic_vector(3 downto 0);
-      exceptionSig:	out std_logic
+      microcode:    out std_logic_vector(22 downto 0)
     );
   end component;
   
@@ -95,6 +104,15 @@ package ComponentsPkg is
 			input:				in std_logic_vector(31 downto 0);
 			instruction:	in std_logic_vector(31 downto 0);
 			output:				out std_logic_vector(31 downto 0)
+		);
+	end component;
+	
+	component CSRsControl is
+		port(
+			r1Sig:		in	std_logic_vector(31 downto 0);
+			immValue:	in	std_logic_vector(31 downto 0);
+			r1orzimm:	in	std_logic;
+			CSRInput:	out	std_logic_vector(31 downto 0)
 		);
 	end component;
   

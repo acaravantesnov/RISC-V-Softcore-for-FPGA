@@ -20,7 +20,6 @@ entity ProgramCounter is
     PCEn:           in std_logic;
     reset:          in std_logic;
     clock:          in std_logic;
-    exception:			in std_logic;
     currentAddress: out std_logic_vector(31 downto 0)
   );
 end ProgramCounter;
@@ -35,8 +34,6 @@ begin
   begin
     if (reset = '1') then
       counter <= (others => '0');
-    elsif (exception = '1') then
-    	counter <= std_logic_vector(to_unsigned(to_integer(unsigned(counter)) + 4, 32));
     elsif ((rising_edge(clock)) and (PCEn = '1')) then
       counter <= nextAddress;
     end if;

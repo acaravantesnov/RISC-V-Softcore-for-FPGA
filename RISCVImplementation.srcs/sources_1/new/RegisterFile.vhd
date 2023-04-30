@@ -26,6 +26,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.ComponentsPkg.all;
 use work.BasicPkg.all;
 
 entity RegisterFile is
@@ -52,19 +53,6 @@ architecture RegisterFile_ARCH of RegisterFile is
 
 	type t_Output is array (31 downto 0) of std_logic_vector(31 downto 0);
 	signal r_Output: t_Output;
-
-	component singleRegister is
-		generic(
-  		REGSIZE: natural
-  	);
-		port(
-			input:      in std_logic_vector(31 downto 0);
-			writeEn:    in std_logic;
-			clock:      in std_logic;
-			reset:      in std_logic;
-			output:     out std_logic_vector(31 downto 0)
-		);
-	end component;
 
 begin
 

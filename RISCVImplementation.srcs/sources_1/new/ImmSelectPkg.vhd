@@ -27,6 +27,9 @@ package ImmSelectPkg is
   function J_type(  input: std_logic_vector(31 downto 0))
                     return std_logic_vector;
 
+	function Atomic(  input: std_logic_vector(31 downto 0))
+                    return std_logic_vector;
+
 end package;
 
 package body ImmSelectPkg is
@@ -76,6 +79,13 @@ package body ImmSelectPkg is
     ImmValue(11) := input(20);
     ImmValue(10 downto 1) := input(30 downto 21);
     return ImmValue;
+  end function;
+
+  function Atomic(  input: std_logic_vector(31 downto 0))
+                    return std_logic_vector is
+  	variable ImmValue: std_logic_vector(31 downto 0) := (others => '0');
+  begin
+  	return ImmValue;
   end function;
 
 end package body;

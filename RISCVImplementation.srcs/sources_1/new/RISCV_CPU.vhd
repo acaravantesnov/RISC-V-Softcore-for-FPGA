@@ -58,22 +58,25 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal memOut:            std_logic_vector(31 downto 0);
   signal loadControlOut:    std_logic_vector(31 downto 0);
   signal comp:              std_logic_vector(2 downto 0);
-  signal mcauseIn:					std_logic_vector(3 downto 0);
-  signal mcause:						std_logic_vector(3 downto 0);
   signal dataEn:						std_logic;
   signal GPIOEn:						std_logic;
   
-  signal exceptionSig:			std_logic;
+  signal CSRInput:					std_logic_vector(31 downto 0);
+  signal index:							natural;
+	signal CSROutput:					std_logic_vector(31 downto 0);
 
-  signal microcode:         std_logic_vector(17 downto 0);
+  signal microcode:         std_logic_vector(22 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
+  signal CSRWriteEn:				std_logic;
+  signal atomicOpt:					std_logic_vector(1 downto 0);
+  signal r1orzimm:					std_logic;
   signal auipc:							std_logic;
   signal PCEn:              std_logic;
   signal insRegEn:          std_logic;
   signal ALUOp:             std_logic_vector(1 downto 0);
   signal immSel:            std_logic_vector(2 downto 0);
   signal regWriteEn:        std_logic;
-  signal wdSel:             std_logic;
+  signal wdSel:             std_logic_vector(1 downto 0);
   signal regImmSel:         std_logic;
   signal jumpSel:           std_logic;
 	signal PCSel:							std_logic;
@@ -84,13 +87,16 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
 
 begin
 
-	auipc							<= microcode(17);
-  PCEn              <= microcode(16);
-  insRegEn          <= microcode(15);
-  ALUOp             <= microcode(14 downto 13);
-  immSel            <= microcode(12 downto 10);
-  regWriteEn        <= microcode(9);
-  wdSel             <= microcode(8);
+	CSRWriteEn				<= microcode(22);
+	atomicOpt					<= microcode(21 downto 20);
+	r1orzimm					<= microcode(19);
+	auipc							<= microcode(18);
+  PCEn              <= microcode(17);
+  insRegEn          <= microcode(16);
+  ALUOp             <= microcode(15 downto 14);
+  immSel            <= microcode(13 downto 11);
+  regWriteEn        <= microcode(10);
+  wdSel             <= microcode(9 downto 8);
   regImmSel         <= microcode(7);
   jumpSel           <= microcode(6);
   PCSel       			<= microcode(5);
@@ -105,7 +111,6 @@ begin
       PCEn => PCEn,
       reset => reset,
       clock => clock,
-      exception => exceptionSig,
       currentAddress => currentPC
     );
 
@@ -150,8 +155,9 @@ begin
     );
 
   with wdSel
-    select writeData <= PCPlus4					when '0',
-                        loadControlOut	when '1',
+    select writeData <= PCPlus4					when "00",
+                        loadControlOut	when "01",
+                        CSROutput				when "10",
                         (others => '0')	when others;
 
   REGFILE_U: RegisterFile
@@ -166,6 +172,21 @@ begin
       r1 => r1Sig,
       r2 => r2Sig
     );
+  
+  with inst(20)
+  	select index <= 0 when '0',
+  									1 when '1',
+  									0 when others;
+  CSRS_U: CSRs
+  	port map(
+  		input => CSRInput,
+  		CSRWriteEn => CSRWriteEn,
+  		atomicOpt => atomicOpt,
+  		CSRSel => index,
+  		clock => clock,
+  		reset => reset,
+  		output => CSROutput
+  	);
 
   CU_U: ControlUnit
     port map(
@@ -173,9 +194,7 @@ begin
       comparison => comp,
       reset => reset,
       clock => clock,
-      microcode => microcode,
-      mcause => mcauseIn,
-      exceptionSig => exceptionSig
+      microcode => microcode
     );
 
   COMP_U: Comparison
@@ -213,17 +232,13 @@ begin
   		instruction => inst,
   		output => dataIn
   	);
-
-  MCAUSEREG_U: singleRegister
-  	generic map(
-  		REGSIZE => 4
-  	)
+  	
+	CSRSCONTRL_U: CSRsControl
   	port map(
-  		input => mcauseIn,
-  		writeEn => '1',
-  		reset => reset,
-  		clock => clock,
-  		output => mcause
+  		r1Sig => r1Sig,
+  		immValue => immValue,
+  		r1orzimm => r1orzimm,
+  		CSRInput => CSRInput
   	);
 
   JUMPC_U: JumpControl

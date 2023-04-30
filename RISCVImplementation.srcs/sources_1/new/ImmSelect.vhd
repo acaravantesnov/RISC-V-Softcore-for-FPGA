@@ -37,6 +37,7 @@ begin
                       S_type(input) when "010", -- S-type
                       U_type(input) when "011", -- U-type
                       J_type(input) when "100", -- J-type
+                      Atomic(input) when "101",	-- Atomic ins.
                       (others => '0') when others;
 
 end ImmSelect_ARCH;

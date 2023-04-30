@@ -22,40 +22,18 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(17 downto 0);
-    mcause:				out std_logic_vector(3 downto 0);
-    exceptionSig:	out std_logic
+    microcode:    out std_logic_vector(22 downto 0)
   );
 end ControlUnit;
 
 architecture ControlUnit_ARCH of ControlUnit is
 
   ----state-machine-declarations----------------------------------------SIGNALS
-  type States_t is (START, FETCH, DECODE, SAVE_TO_REG, SAVE_TO_MEM);
+  type States_t is (START, FETCH, DECODE, SAVE_TO_REG, SAVE_TO_MEM, SAVE_TO_REG_AND_CSR);
   signal currentState:  States_t;
   signal nextState:     States_t;
 
 begin
-
-	exceptionSig <= '0';
-	mcause <= (others => '0');
-
-	--EXCEPTION_HANDLER: process(instruction)
-	--begin
-		--if ((instruction(6 downto 0) /= "0110111") and		-- U-type lui
-				--(instruction(6 downto 0) /= "0010111") and		-- U-type auipc
-				--(instruction(6 downto 0) /= "1101111") and		-- J-type jal
-				--(instruction(6 downto 0) /= "1100111") and		-- I-type jalr
-				--(instruction(6 downto 0) /= "1100011") and		-- B-type
-				--(instruction(6 downto 0) /= "0000011") and		-- I-type loads
-				--(instruction(6 downto 0) /= "0100011") and		-- S-type
-				--(instruction(6 downto 0) /= "0010011") and		-- I-type
-				--(instruction(6 downto 0) /= "0110011") and		-- R-type
-				--(instruction(6 downto 0) /= "0000000")) then	-- To be determined
-			--exceptionSig <= '1';
-			--mcause <= (1 => '1', others => '0');
-		--end if;
-	--end process EXCEPTION_HANDLER;
 
 	--====================================================================PROCESS
 	--
@@ -96,9 +74,8 @@ begin
         nextState <= FETCH;
       --------------------------------------------------------------------FETCH
       when FETCH =>
-        microcode(15) <= '1';
-        microcode(8) <= '1';
-        exceptionSig <= '0';
+        microcode(16) <= '1';
+        --microcode(8) <= '1';
         nextState <= DECODE;
       -------------------------------------------------------------------DECODE
       when DECODE =>
@@ -111,27 +88,36 @@ begin
           nextState <= SAVE_TO_REG;
         elsif ((instruction(6 downto 0) = "0000011") or		-- I-type loads
         			(instruction(6 downto 0) = "0110111")) then	-- U-type lui
-        	microcode(16) <= '1';
-        	microcode(9) <= '1';
+        	microcode(17) <= '1';
+        	microcode(10) <= '1';
         	nextState <= FETCH;
         elsif (instruction(6 downto 0) = "0100011") then  -- S-type
           nextState <= SAVE_TO_MEM;
         elsif (instruction(6 downto 0) = "1100011") then  -- B-type
-          microcode(16) <= '1';
+          microcode(17) <= '1';
           nextState <= FETCH;
+        elsif (instruction(6 downto 0) = "1110011") then	-- Atomic ins.
+        	nextState <= SAVE_TO_REG_AND_CSR;
         end if;
       --------------------------------------------------------------SAVE_TO_REG
       when SAVE_TO_REG =>
       	microcode <= decode(instruction, comparison);
-        microcode(16) <= '1';
-        microcode(9) <= '1';
+        microcode(17) <= '1';
+        microcode(10) <= '1';
         nextState <= FETCH;
       --------------------------------------------------------------SAVE_TO_MEM
       when SAVE_TO_MEM =>
       	microcode <= decode(instruction, comparison);
-        microcode(16) <= '1';
+        microcode(17) <= '1';
         microcode(4) <= '1';
         nextState <= FETCH;
+      ------------------------------------------------------SAVE_TO_REG_AND_CSR
+      when SAVE_TO_REG_AND_CSR =>
+      	microcode <= decode(instruction, comparison);
+      	microcode(17) <= '1';
+      	microcode(10) <= '1';
+      	microcode(22) <= '1';
+      	nextState <= FETCH;
     end case;
   end process STATE_TRANSITION;
 
