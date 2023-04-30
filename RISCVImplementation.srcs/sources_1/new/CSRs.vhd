@@ -33,9 +33,9 @@ begin
 		elsif (rising_edge(clock)) then
 			if (CSRWriteEn = '1') then
 				case atomicOpt is
-					when "00" => ram(CSRSel) <= input;
-					when "01" => ram(CSRSel) <= ram(CSRSel) or input;
-					when "10" => ram(CSRSel) <= ram(CSRSel) and input;
+					when "00" => ram(CSRSel) <= input;												-- Read and Write
+					when "01" => ram(CSRSel) <= ram(CSRSel) or input;					-- Read and Set
+					when "10" => ram(CSRSel) <= ram(CSRSel) and (not input);	-- Read and Clear
 					when others =>
 				end case;
 			end if;

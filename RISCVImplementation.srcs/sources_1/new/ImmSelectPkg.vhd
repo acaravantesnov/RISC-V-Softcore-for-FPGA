@@ -85,6 +85,7 @@ package body ImmSelectPkg is
                     return std_logic_vector is
   	variable ImmValue: std_logic_vector(31 downto 0) := (others => '0');
   begin
+  	ImmValue(4 downto 0) := input(19 downto 15);
   	return ImmValue;
   end function;
 

@@ -96,11 +96,11 @@ package body ControlUnitPkg is
       		when "011" => -- csrrc
       			microcode := "01000000000001000000000";
       		when "101" => -- csrrwi
-      			microcode := "XXXXXXXXXXXXXXXXXXXXXXX"; -- Por implementar.
+      			microcode := "00010000010101000000000";
       		when "110" => -- csrrsi
-      			microcode := "XXXXXXXXXXXXXXXXXXXXXXX";
+      			microcode := "00110000010101000000000";
       		when "111" => -- csrrci
-      			microcode := "XXXXXXXXXXXXXXXXXXXXXXX";
+      			microcode := "01010000010101000000000";
       		when others	=> microcode := (others => 'X');
       	end case;
       when others	=> microcode := (others => 'X');
