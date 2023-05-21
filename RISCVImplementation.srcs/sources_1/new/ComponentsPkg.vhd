@@ -132,7 +132,6 @@ package ComponentsPkg is
       writeEn: 		in std_logic;
       address:    in std_logic_vector(11 downto 0);
       dataIn:     in std_logic_vector(31 downto 0);
-      reset:			in std_logic;
       clock:      in std_logic;
       dataOut:    out std_logic_vector(31 downto 0)
     );
@@ -140,13 +139,12 @@ package ComponentsPkg is
   
   component GPIO is
 		port(
-			writeEn:		in 	std_logic;
-			address:		in 	std_logic_vector(3 downto 0);
-			dataIn:			in 	std_logic_vector(31 downto 0);
-			outputsel:	in 	std_logic_vector(3 downto 0);
-			reset:			in 	std_logic;
-			clock:			in 	std_logic;
-			dataOut:		out std_logic_vector(31 downto 0)
+			writeEn:		in 		std_logic;
+			address:		in 		std_logic_vector(1 downto 0);
+			dataIn:			in 		std_logic_vector(31 downto 0);
+			reset:			in 		std_logic;
+			clock:			in 		std_logic;
+			data:				inout std_logic_vector(31 downto 0)
 		);
 	end component;
   

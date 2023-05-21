@@ -25,15 +25,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.BasicPkg.all;
 use work.ComponentsPkg.all;
 
 entity RISCV_CPU is
   port(
-    clock:      in 	std_logic;
-    reset:      in 	std_logic;
-    outputSel:	in 	std_logic_vector(3 downto 0);
-    GPIOOut:		out std_logic_vector(31 downto 0)
+    clock:      in 		std_logic;
+    reset:      in 		std_logic;
+    GPIOPins:		inout std_logic_vector(31 downto 0)
   );
 end RISCV_CPU;
 
@@ -60,10 +58,10 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal comp:              std_logic_vector(2 downto 0);
   signal dataEn:						std_logic;
   signal GPIOEn:						std_logic;
-  
+
   signal CSRInput:					std_logic_vector(31 downto 0);
-  signal index:							natural;
 	signal CSROutput:					std_logic_vector(31 downto 0);
+	signal index:							natural;
 
   signal microcode:         std_logic_vector(22 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
@@ -159,7 +157,6 @@ begin
                         loadControlOut	when "01",
                         CSROutput				when "10",
                         (others => '0')	when others;
-
   REGFILE_U: RegisterFile
     port map(
       rs1 => unsigned(inst(19 downto 15)),
@@ -172,7 +169,7 @@ begin
       r1 => r1Sig,
       r2 => r2Sig
     );
-  
+
   with inst(20)
   	select index <= 0 when '0',
   									1 when '1',
@@ -225,14 +222,14 @@ begin
       control => ALUControlSig,
       resultValue => ALUResult
     );
-    
+
   STOREC_U: StoreControl
   	port map(
   		input => r2Sig,
   		instruction => inst,
   		output => dataIn
   	);
-  	
+
 	CSRSCONTRL_U: CSRsControl
   	port map(
   		r1Sig => r1Sig,
@@ -257,21 +254,19 @@ begin
       writeEn => dataEn,
       address => ALUResult(11 downto 0),
       dataIn => dataIn,
-      reset => reset,
       clock => clock,
       dataOut => memOut
     );
-    
+
   GPIOEn <= memWriteEn and ALUresult(12);
   GPIO_U: GPIO
   	port map(
   		writeEn => GPIOEn,
-  		address => ALUresult(3 downto 0),
+  		address => ALUresult(1 downto 0),
   		dataIn => dataIn,
-  		outputSel => outputSel,
   		reset => reset,
   		clock => clock,
-  		dataOut => GPIOOut
+  		data => GPIOPins
   	);
 
   with ALUMemSel

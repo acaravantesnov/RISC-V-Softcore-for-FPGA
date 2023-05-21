@@ -10,15 +10,13 @@ architecture RISCV_CPU_TB_ARCH of RISCV_CPU_TB is
     port(
       clock:      in 	std_logic;
       reset:      in 	std_logic;
-      outputSel:	in 	std_logic_vector(3 downto 0);
-      GPIOOut:		out	std_logic_vector(31 downto 0)
+      GPIOPins:		inout	std_logic_vector(31 downto 0)
     );
   end component;
   
   signal clock: 		std_logic;
   signal reset: 		std_logic;
-  signal outputSel: std_logic_vector(3 downto 0);
-  signal GPIOOut: 	std_logic_vector(31 downto 0);
+  signal GPIOPins: 	std_logic_vector(31 downto 0);
 
 begin
 
@@ -26,16 +24,9 @@ begin
     port map(
       clock => clock,
       reset => reset,
-      outputSel => outputSel,
-      GPIOOut => GPIOOut
+      GPIOPins => GPIOPins
     );
-  
-  GPIO_SEL:	process
-  begin
-  	outputSel <= "0010";
-  	wait;
-  end process GPIO_SEL;
-  
+
   SYS_CLOCK: process
   begin
     clock <= '0';

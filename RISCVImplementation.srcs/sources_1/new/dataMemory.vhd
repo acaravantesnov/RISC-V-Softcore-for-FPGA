@@ -10,7 +10,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.BasicPkg.all;
 
 entity DataMemory is
   generic(
@@ -20,7 +19,6 @@ entity DataMemory is
     writeEn: 		in std_logic;
     address:    in std_logic_vector(11 downto 0);
     dataIn:     in std_logic_vector(31 downto 0);
-    reset:			in std_logic;
     clock:      in std_logic;
     dataOut:    out std_logic_vector(31 downto 0)
   );
@@ -36,9 +34,7 @@ begin
   -- Store: Write register value to memory.
   STORE: process(clock)
   begin
-  	if (reset = '1') then
-  		ram <= (others => (others => '0'));
-    elsif (rising_edge(clock)) then
+    if (rising_edge(clock)) then
       if (writeEn = '1') then
         ram(to_integer(unsigned(address))) <= dataIn;
       end if;
