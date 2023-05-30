@@ -58,12 +58,14 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal comp:              std_logic_vector(2 downto 0);
   signal dataEn:						std_logic;
   signal GPIOEn:						std_logic;
+  signal GPIOOut:						std_logic_vector(31 downto 0);
+  signal TimerEn:						std_logic;
 
   signal CSRInput:					std_logic_vector(31 downto 0);
 	signal CSROutput:					std_logic_vector(31 downto 0);
 	signal index:							natural;
 
-  signal microcode:         std_logic_vector(22 downto 0);
+  signal microcode:         std_logic_vector(23 downto 0);
   ----microcode-signals------------------------------------------------SIGNALS
   signal CSRWriteEn:				std_logic;
   signal atomicOpt:					std_logic_vector(1 downto 0);
@@ -79,27 +81,27 @@ architecture RISCV_CPU_ARCH of RISCV_CPU is
   signal jumpSel:           std_logic;
 	signal PCSel:							std_logic;
   signal memWriteEn:        std_logic;
-  signal ALUMemSel:         std_logic;
+  signal ALUMemSel:         std_logic_vector(1 downto 0);
   signal nBits:             std_logic_vector(1 downto 0);
   signal signedOrUnsigned:  std_logic;
 
 begin
 
-	CSRWriteEn				<= microcode(22);
-	atomicOpt					<= microcode(21 downto 20);
-	r1orzimm					<= microcode(19);
-	auipc							<= microcode(18);
-  PCEn              <= microcode(17);
-  insRegEn          <= microcode(16);
-  ALUOp             <= microcode(15 downto 14);
-  immSel            <= microcode(13 downto 11);
-  regWriteEn        <= microcode(10);
-  wdSel             <= microcode(9 downto 8);
-  regImmSel         <= microcode(7);
-  jumpSel           <= microcode(6);
-  PCSel       			<= microcode(5);
-  memWriteEn        <= microcode(4);
-  ALUMemSel         <= microcode(3);
+	CSRWriteEn				<= microcode(23);
+	atomicOpt					<= microcode(22 downto 21);
+	r1orzimm					<= microcode(20);
+	auipc							<= microcode(19);
+  PCEn              <= microcode(18);
+  insRegEn          <= microcode(17);
+  ALUOp             <= microcode(16 downto 15);
+  immSel            <= microcode(14 downto 12);
+  regWriteEn        <= microcode(11);
+  wdSel             <= microcode(10 downto 9);
+  regImmSel         <= microcode(8);
+  jumpSel           <= microcode(7);
+  PCSel       			<= microcode(6);
+  memWriteEn        <= microcode(5);
+  ALUMemSel         <= microcode(4 downto 3);
   nBits             <= microcode(2 downto 1);
   signedOrUnsigned  <= microcode(0);
 
@@ -266,12 +268,26 @@ begin
   		dataIn => dataIn,
   		reset => reset,
   		clock => clock,
+  		dataOut => GPIOOut,
   		data => GPIOPins
+  	);
+  	
+  TimerEn <= memWriteEn and ALUresult(12) and ALUresult(13);
+  TIMER_U: Timer
+  	generic map(17)
+  	port map(
+  		address => ALUresult(1 downto 0),
+  		dataIn => dataIn,
+  		writeEn => TimerEn,
+  		reset => reset,
+  		clock => clock
+  		-- timerInterrupt?
   	);
 
   with ALUMemSel
-    select MUXOutSig <= memOut          when '0',
-                        ALUResult       when '1',
+    select MUXOutSig <= memOut          when "00",
+                        ALUResult       when "01",
+                        GPIOOut					when "10",
                         (others => '0') when others;
 
   LOADC_U: LoadControl

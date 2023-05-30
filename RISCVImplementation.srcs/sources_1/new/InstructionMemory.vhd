@@ -20,7 +20,7 @@ use ieee.std_logic_textio.all;
 entity InstructionMemory is
   generic(
     INS_MEM_SIZE: integer := 2 ** 10; -- 1024
-    TEXT_FILE:		string := "Atomic_Test.mem"
+    TEXT_FILE:		string := "Program_1.mem"
   );
   port(
     readAddress: in std_logic_vector(31 downto 0);

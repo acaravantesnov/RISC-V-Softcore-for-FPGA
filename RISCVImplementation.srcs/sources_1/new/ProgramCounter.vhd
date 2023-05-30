@@ -34,8 +34,10 @@ begin
   begin
     if (reset = '1') then
       counter <= (others => '0');
-    elsif ((rising_edge(clock)) and (PCEn = '1')) then
-      counter <= nextAddress;
+    elsif (rising_edge(clock)) then
+    	if (PCEn = '1') then
+      	counter <= nextAddress;
+      end if;
     end if;
   end process;
   

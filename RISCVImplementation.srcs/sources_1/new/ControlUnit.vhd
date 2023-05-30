@@ -21,7 +21,7 @@ entity ControlUnit is
     comparison:   in  std_logic_vector(2 downto 0);
     reset:        in  std_logic;
     clock:        in  std_logic;
-    microcode:    out std_logic_vector(22 downto 0)
+    microcode:    out std_logic_vector(23 downto 0)
   );
 end ControlUnit;
 
@@ -73,7 +73,7 @@ begin
         nextState <= FETCH;
       --------------------------------------------------------------------FETCH
       when FETCH =>
-        microcode(16) <= '1';
+        microcode(17) <= '1';
         --microcode(8) <= '1';
         nextState <= DECODE;
       -------------------------------------------------------------------DECODE
@@ -87,13 +87,13 @@ begin
           nextState <= SAVE_TO_REG;
         elsif ((instruction(6 downto 0) = "0000011") or		-- I-type loads
         			(instruction(6 downto 0) = "0110111")) then	-- U-type lui
-        	microcode(17) <= '1';
-        	microcode(10) <= '1';
+        	microcode(18) <= '1';
+        	microcode(11) <= '1';
         	nextState <= FETCH;
         elsif (instruction(6 downto 0) = "0100011") then  -- S-type
           nextState <= SAVE_TO_MEM;
         elsif (instruction(6 downto 0) = "1100011") then  -- B-type
-          microcode(17) <= '1';
+          microcode(18) <= '1';
           nextState <= FETCH;
         elsif (instruction(6 downto 0) = "1110011") then	-- Atomic ins.
         	nextState <= SAVE_TO_REG_AND_CSR;
@@ -101,21 +101,21 @@ begin
       --------------------------------------------------------------SAVE_TO_REG
       when SAVE_TO_REG =>
       	microcode <= decode(instruction, comparison);
-        microcode(17) <= '1';
-        microcode(10) <= '1';
+        microcode(18) <= '1';
+        microcode(11) <= '1';
         nextState <= FETCH;
       --------------------------------------------------------------SAVE_TO_MEM
       when SAVE_TO_MEM =>
       	microcode <= decode(instruction, comparison);
-        microcode(17) <= '1';
-        microcode(4) <= '1';
+        microcode(18) <= '1';
+        microcode(5) <= '1';
         nextState <= FETCH;
       ------------------------------------------------------SAVE_TO_REG_AND_CSR
       when SAVE_TO_REG_AND_CSR =>
       	microcode <= decode(instruction, comparison);
-      	microcode(17) <= '1';
-      	microcode(10) <= '1';
-      	microcode(22) <= '1';
+      	microcode(18) <= '1';
+      	microcode(11) <= '1';
+      	microcode(23) <= '1';
       	nextState <= FETCH;
     end case;
   end process STATE_TRANSITION;

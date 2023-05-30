@@ -10,6 +10,7 @@ entity GPIO is
 		dataIn:			in 		std_logic_vector(31 downto 0);
 		reset:			in 		std_logic;
 		clock:			in 		std_logic;
+		dataOut:		out		std_logic_vector(31 downto 0);
 		data:				inout std_logic_vector(31 downto 0)
 	);
 end GPIO;
@@ -40,8 +41,8 @@ begin
 			input => dIn,
 			writeEn => r_WriteEn(1),
 			reset => reset,
-			clock => clock
-			-- output?
+			clock => clock,
+			output => dataOut
 		);
 		
 	TRISTATE: singleRegister
@@ -53,19 +54,11 @@ begin
 			clock => clock,
 			output => tri
 		);
-		
+
 	-- DEMUX for writeEn
-	DEMUX: process(address, writeEn)
-	begin
-    for i in 0 to 2 loop
-      if (to_integer(unsigned(address)) = i) then
-        r_WriteEn(i) <= writeEn;
-      else
-        r_WriteEn(i) <= '0';
-      end if;
-    end loop;
-	end process;
-		
+	r_WriteEn(1) <= '1' when to_integer(unsigned(address)) = 1 else '0';
+	r_WriteEn(2) <= '1' when to_integer(unsigned(address)) = 2 else '0';
+
 	PINS: process(data, tri, dOut, dIn)
 	begin
 		for i in 0 to 31 loop
@@ -75,7 +68,8 @@ begin
 				data(i) <= 'Z';
 			end if;
 		end loop;
-		dIn <= data;
 	end process PINS;
+	
+	dIn <= data;
 
 end architecture GPIO_ARCH;

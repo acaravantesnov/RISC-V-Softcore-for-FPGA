@@ -75,7 +75,7 @@ package ComponentsPkg is
       comparison:   in  std_logic_vector(2 downto 0);
       reset:        in  std_logic;
       clock:        in  std_logic;
-      microcode:    out std_logic_vector(22 downto 0)
+      microcode:    out std_logic_vector(23 downto 0)
     );
   end component;
   
@@ -144,8 +144,23 @@ package ComponentsPkg is
 			dataIn:			in 		std_logic_vector(31 downto 0);
 			reset:			in 		std_logic;
 			clock:			in 		std_logic;
+			dataOut:		out		std_logic_vector(31 downto 0);
 			data:				inout std_logic_vector(31 downto 0)
 		);
+	end component;
+	
+	component Timer is
+	generic(
+		CNTVALUE_SIZE: natural
+	);
+	port(
+		address:				in std_logic_vector(1 downto 0);
+		dataIn:					in std_logic_vector(31 downto 0);
+		writeEn:				in std_logic;
+		reset:					in std_logic;
+		clock:					in std_logic;
+		timerInterrupt:	out	std_logic
+	);
 	end component;
   
   component ImmSelect is
