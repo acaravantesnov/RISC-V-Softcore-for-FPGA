@@ -1,0 +1,67 @@
+# Ejemplo_1.s - Operaciones lógicas y shifts.   --> OK
+
+Guarda el valor 256 en el stack pointer (registro 2).
+Guarda 2 valores (-50 y 102) en los registros x6 y x7 (temporary registers).
+Opera y realiza operaciones lógicas sobre los registros temporales, y va guardando los resultados en registros guardados (x18 a x25).
+Usando el sp, guarda los resultados en la memoria de datos.
+
+# Ejemplo_2.s - sb, lw y comparación slt.
+
+Guarda el valor 256 en el stack pointer (registro 2).
+Guarda 2 valores (324 y -76) en los registros x6 y x7 (temporary registers).
+Guarda el byte menos significativo de ambos registros en memoria (sp y sp + 1).
+Carga los valores de ambas direcciones de memoria en los registros x6 y x7.
+Finalmente compara los 2 valores y guarda el resultado en el registro x18.
+
+# Ejemplo_3.s - Bucle con iterador de 80 a 100. Cargar a GPIO.
+
+Guarda los valores 80 y 100 en los registros x18 y x19 respectivamente.
+Guarda también el numero 1 en el registro x6. Este se usara para incrementar 80 hasta llegar a 100.
+Despues se evalua la condicion de si x18 == x19. Si ha llegado el x18 al valor 100, se avanza a la siguiente instruccion.
+Se ponen a 1 los primeros 8 bits de TRI del GPIO (con el valor 255), y después se guarda en DatosOut del GPIO el valor del registro 18 (debería ser 100).
+
+# Ejemplo_4.s - CSRs.
+
+Carga el valor del registro x6 (1) al registro de control y estado 0.
+Pone a 1 el bit 3 del csr 0.
+Pone a 1 el bit 5 del csr 0.
+Borra los bits 5, 3 y 1.
+Va guardando los valores en los registros x18 a x27.
+
+# Ejemplo_5.s - Stores y Loads.
+
+Guarda el valor 256 en el stack pointer (registro 2).
+Carga el valor -1000 en el registro temporal x18.
+Guarda el valor del registro x18 en el stack.
+Carga los los 32 bits del stack al registro x19.
+Guarda los 16 LSB de x19 en el stack.
+Carga los 16 LSB del stack a x20.
+Guarda los 8 LSB de x20 en el stack.
+Carga los 8 LSB del stack a x21.
+
+# Ejemplo_6.s - y
+ por primera vez.
+
+Cargar en registro x18 dirección de memoria de timer.
+Cargar en registro x19 valor a cargar en ARR de Timer (valor al que quiero que llegue el timer).
+Guardar valor de x19 en ARR.
+Con addi y sb, cargar bit Enable y En_Interrupt del registro de Control del Timer para que empiece a contar.
+
+# FPGA_0.s
+
+1. Cargar en x20 la dirección de memoria del registro 0 del GPIO.
+2. Cargar en x21 el valor 10000000000000000.
+3. Restar 1 a x21 para obtener 1111111111111111 (para los 16 LSB de TRI para los LED).
+4. Guardar el valor 111111111111111 en TRI (registro 2 del GPIO).
+5. Añadir el valor 16 a x24.
+6. Cargar el valor del registro 1 del GPIO (datosIn) en el registro x22.
+6. Cargar el valor de x22 en datosOut del GPIO.
+7. Hacer bucle de instrucciones 5 y 6 saltando a la instrucción 5.
+
+No funciona.
+
+# Exception_1.s
+
+1. Número 42 a x7.
+2. Número 42 a x8. (Instrucción modificada para ser NVI).
+3. Número 42 a x9.
